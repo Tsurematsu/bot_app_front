@@ -1,0 +1,23 @@
+{
+  "name": "bot_app_front",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "analyze": "cem analyze --litelement",
+    "analyze:watch": "cem analyze --litelement --watch"
+  },
+  "dependencies": {
+    "lit": "^3.3.1"
+  },
+  "devDependencies": {
+    "@custom-elements-manifest/analyzer": "^0.10.10",
+    "ts-lit-plugin": "^2.0.2",
+    "typescript": "~5.9.3",
+    "vite": "^7.1.7"
+  },
+  "customElements": "custom-elements.json"
+}

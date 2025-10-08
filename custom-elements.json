@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/app/app.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "appClass",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "app-el",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "appClass",
+          "declaration": {
+            "name": "appClass",
+            "module": "src/app/app.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "app-el",
+          "declaration": {
+            "name": "appClass",
+            "module": "src/app/app.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/main/main.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "",
+          "name": "MainClass",
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "main-el",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MainClass",
+          "declaration": {
+            "name": "MainClass",
+            "module": "src/main/main.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "main-el",
+          "declaration": {
+            "name": "MainClass",
+            "module": "src/main/main.ts"
+          }
+        }
+      ]
+    }
+  ]
+}
