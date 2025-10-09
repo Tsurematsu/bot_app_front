@@ -13,17 +13,10 @@ export class ClientesClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     render() {
         return html`
-            <h2>Clientes</h2>
+            <header class="header">
+                <h1>Clientes</h1>
+            </header>
             <div class="api-list">
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
-                ${userItem()}
                 ${userItem()}
             </div>
         `;

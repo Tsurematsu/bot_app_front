@@ -15,11 +15,7 @@ export class credencialesClass extends LitElement {
         return html`
             <div class="container">
                 <header class="header">
-                <button class="back-button">
-                    <img width="30" src="/public/flecha-back.png" alt="">
-                </button>
-                <h1>Generar código de acceso</h1>
-                <div class="spacer"></div>
+                    <h1>Generar código de acceso</h1>
                 </header>
 
                 <main class="main">
