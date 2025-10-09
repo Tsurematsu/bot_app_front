@@ -1,29 +1,35 @@
 import { css, html, LitElement, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import styles from './configuracion_admin.css?inline'
-export default function configuracion_admin() {
+export default function configuracion_admin(username, hiddenPanel) {
     return html`
-        <configuracion_admin-el></configuracion_admin-el>
+        <configuracion_admin-el .username=${username} .hiddenPanel=${hiddenPanel}></configuracion_admin-el>
     `
 }
 
 @customElement('configuracion_admin-el')
 export class configuracion_adminClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
+    @property()
+    private username = ""
+
+    @property()
+    private hiddenPanel =()=>{}
+
     render() {
         return html`
 
         <div class="container">
             <header class="header">
-            <button class="back-button">
+            <button @click=${this.hiddenPanel} class="back-button">
                 <img width="30" src="/public/flecha-back.png" alt="">
             </button>
-            <h1>Configuración</h1>
+            <h1>Permisos</h1>
             <div class="spacer"></div>
             </header>
 
             <main class="main">
-                <h2>Permisos</h2>
+                <h2>${this.username}</h2>
                 <div class="permissions-list">
                     <!-- Repite este bloque para cada permiso -->
                     <div class="permission-item">
