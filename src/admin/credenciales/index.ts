@@ -31,7 +31,7 @@ export class credencialesClass extends LitElement {
                     <div class="generated-code-container">
                     <input type="text" id="generated-code" value="XF34K-9G2B7-L5P1R-M8V6W" readonly>
                     <button class="copy-button">
-                        <span class="material-symbols-outlined">content_copy</span>
+                        <span class="material-symbols-outlined">copy</span>
                     </button>
                     </div>
                 </div>
