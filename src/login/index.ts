@@ -29,15 +29,12 @@ export class LoginClass extends LitElement {
                     </div>
 
                     <div class="options">
-                    <label><input type="checkbox"> Recordarme</label>
                     <a href="#">No recuerdo mi código</a>
                     </div>
 
                     <button @click=${this.onChangePage} class="login-btn">INGRESAR</button>
                 </div>
 
-                <!-- Font Awesome for icons -->
-                <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
             </div>
             <!-- <button @click=${this.onChangePage}>Ir a administrador</button> -->
