@@ -28,7 +28,7 @@ export class AdminClass extends LitElement {
             <div class="app-wrapper">
                 <!-- MAIN -->
                 <main class="main">
-                    ${this.pages[this.selectPage]()}
+                    ${this.pages[this.selectPage](this.setUrl)}
                 </main>
 
                 <!-- NAV -->
@@ -54,5 +54,4 @@ export class AdminClass extends LitElement {
         </div>
         `;
     }
-    onChangePage(){this.setUrl('/')}
 }

@@ -3,7 +3,7 @@ import { customElement, property, state } from 'lit/decorators.js';
 import styles from "./clientes.css?inline"
 import userItem from './userItem';
 import configuracion_admin from '../configuracion_admin';
-export default function clientes(){
+export default function clientes(setUrl){
     return html`
         <clientes-el></clientes-el>
     `

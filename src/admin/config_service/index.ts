@@ -1,16 +1,19 @@
 import { css, html, LitElement, unsafeCSS } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 import styles from "./config_service.css?inline"
 
-export default function config_service(){
+export default function config_service(setUrl){
         return html`
-            <config_service-el></config_service-el>
+            <config_service-el .setUrl=${setUrl}></config_service-el>
         `
 }
 
 @customElement('config_service-el')
 export class config_serviceClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
+    @property()
+    private setUrl = (_url)=>{}
+    
     render() {
         return html`
          <div class="container">
@@ -70,7 +73,7 @@ export class config_serviceClass extends LitElement {
                     <button class="action-button">Buscar actualizaciones</button>
                 </div>
 
-                <div class="settings-block logout-block">
+                <div @click=${()=>this.setUrl('/')} class="settings-block logout-block">
                     <button class="logout-btn">🔓 Cerrar Sesión</button>
                 </div>
 

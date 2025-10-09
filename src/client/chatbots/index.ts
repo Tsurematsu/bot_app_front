@@ -12,7 +12,7 @@ export class ChatbotsClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
 
     @state() 
-    private openConfig = true;
+    private openConfig = false;
     private namePanel = '';
     private openPanel =(name)=>{this.namePanel = name; this.openConfig = true;}
     private closePanel = ()=>{this.openConfig = false}

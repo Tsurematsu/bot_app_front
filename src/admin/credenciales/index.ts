@@ -2,7 +2,7 @@ import { LitElement, css, html, unsafeCSS } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import styles from "./credenciales.css?inline"
 
-export default function credenciales(){
+export default function credenciales(setUrl){
     return html`
         <credenciales_admin-el></credenciales_admin-el>
     `
