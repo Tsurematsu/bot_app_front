@@ -1,0 +1,12 @@
+
+h2{
+    width: 100%;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.api-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
