@@ -1,6 +1,7 @@
-import { css, html, LitElement, unsafeCSS, type CSSResultGroup } from 'lit';
+import { css, html, LitElement, unsafeCSS, type CSSResultGroup, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import styles from './login.css?inline'
+import Script from './Script';
 export default function login(SetUrl, GetUrl){
     return html`<login-el .setUrl=${SetUrl} .getUrl=${GetUrl}></login-el>`
 }
@@ -12,6 +13,11 @@ export class LoginClass extends LitElement {
     private setUrl = (url)=>{};
     @property() 
     private getUrl = ()=>{};
+
+    protected firstUpdated(_changedProperties: PropertyValues): void {
+        Script.Auth()
+    }
+
     render() {
         return html`
             <div class="body">
@@ -20,24 +26,21 @@ export class LoginClass extends LitElement {
 
                     <div class="input-group">
                     <i class="fa fa-envelope"></i>
-                    <input type="text" placeholder="ID de usuario">
+                    <input name="username" type="text" placeholder="ID de usuario">
                     </div>
 
                     <div class="input-group">
                     <i class="fa fa-lock"></i>
-                    <input type="password" placeholder="Código de ingreso">
+                    <input name="password" type="password" placeholder="Código de ingreso">
                     </div>
 
                     <div class="options">
                     <a href="#">No recuerdo mi código</a>
                     </div>
 
-                    <button @click=${this.onChangePage} class="login-btn">INGRESAR</button>
+                    <button @click=${Script.Login} class="login-btn">INGRESAR</button>
                 </div>
-
-
             </div>
-            <!-- <button @click=${this.onChangePage}>Ir a administrador</button> -->
         `;
     }
     onChangePage(){this.setUrl('/client')}

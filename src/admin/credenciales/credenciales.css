@@ -113,8 +113,14 @@ input::placeholder {
   display: flex;
   align-items: center;
   cursor: pointer;
+  transition: all 100ms ease-in-out;
+
 }
 
 .copy-button:hover {
   color: #1173d4;
+}
+
+.copy-button:active{
+  background-color: #13158d;
 }

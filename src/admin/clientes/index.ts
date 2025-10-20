@@ -1,4 +1,4 @@
-import { css, html, LitElement, unsafeCSS } from 'lit';
+import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import styles from "./clientes.css?inline"
 import userItem from './userItem';
@@ -23,6 +23,8 @@ export class ClientesClass extends LitElement {
     hiddenPanel = ()=>{
         this.openPanel = false;
     }
+
+
     render() {
         if (this.openPanel) return configuracion_admin(this.clientId, this.hiddenPanel)
         return html`
