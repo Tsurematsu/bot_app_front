@@ -6,7 +6,7 @@ import admin from '../admin'
 import AccessClient from '../Access'
 import page404 from '../htmlCodes/page404'
 import client from '../client'
-import request from '../Request'
+import Request from '../Request'
 
 @customElement('app-el')
 export class appClass extends LitElement {
@@ -22,7 +22,7 @@ export class appClass extends LitElement {
     "/login":login,
     "/":login,
     "/admin":admin,
-    "/request":request,
+    "/request":Request,
     "/client":client,
     "/access":AccessClient,
   }
