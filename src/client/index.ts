@@ -35,8 +35,13 @@ export class ClientClass extends LitElement {
     @state() renderHTMl = false
     protected firstUpdated(): void {
         FETCH.post('/action/client').then((r) => {
-            if (!r.success) {window.location.href = "?request"; return}
-            this.renderHTMl = true;
+            try {
+                if (!r.success) {window.location.href = "?request"; return}
+                this.renderHTMl = true;
+            } catch (error) {
+                window.location.href = "?request"; 
+                return
+            }
         })
     }
 

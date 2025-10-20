@@ -27,9 +27,10 @@ export class AdminClass extends LitElement {
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
         FETCH.post("/action/home").then((r)=>{
+            if (!r.success) window.location.href = "?login"
             this.intoPage = r.success
             if(!this.intoPage) window.location.href = "?login"
-        })
+        }).catch(()=>window.location.href = "?login")
     }
 
     render() {
