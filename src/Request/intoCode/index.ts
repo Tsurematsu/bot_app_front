@@ -1,9 +1,97 @@
-import { customElement } from 'lit/decorators.js';
-import { LitElement, html, unsafeCSS, css } from 'lit';
-import styles from  "./styles.css?inline"
+import { customElement, property, query, queryAll } from 'lit/decorators.js';
+import { LitElement, html, unsafeCSS, css, type PropertyValues } from 'lit';
+import styles from "./styles.css?inline"
+import FETCH from '../../tools/FETCH';
 @customElement('into-code')
 export class Index extends LitElement {
+    @property() token = ""
+    @property() email = ""
+    @property() panelStatus
+    @queryAll(".code-input") code: NodeListOf<HTMLInputElement>
+    @query("#initInput") initInput :HTMLInputElement
     static styles = css`${unsafeCSS(styles)}`
+
+    protected firstUpdated(_changedProperties: PropertyValues): void {
+        this.initInput.focus()
+        if (this.token) {
+            FETCH.post("/auth/into_access_token", { token: this.token }).then((e) => {
+                console.log("Acceso por token:", e);
+                if (e.success && e.success == true) return location.href = "?client"
+            })
+        }
+        this.setupInputHandlers();
+    }
+
+    private setupInputHandlers() {
+        const inputs = Array.from(this.code);
+
+        inputs.forEach((input, index) => {
+            // Manejar el pegado de código
+            input.addEventListener('paste', (e: ClipboardEvent) => {
+                e.preventDefault();
+                const pastedData = e.clipboardData?.getData('text').replace(/[^a-zA-Z0-9]/g, '').toUpperCase() || '';
+
+                if (pastedData.length > 0) {
+                    const chars = pastedData.split('');
+                    chars.forEach((char, i) => {
+                        if (index + i < inputs.length) {
+                            inputs[index + i].value = char;
+                        }
+                    });
+
+                    // Enfocar el siguiente input vacío o el último
+                    const nextEmptyIndex = index + chars.length;
+                    if (nextEmptyIndex < inputs.length) {
+                        inputs[nextEmptyIndex].focus();
+                    } else {
+                        inputs[inputs.length - 1].focus();
+                    }
+                }
+            });
+
+            // Navegación automática al escribir
+            input.addEventListener('input', (e: Event) => {
+                const target = e.target as HTMLInputElement;
+                const value = target.value.replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+                target.value = value;
+
+                if (value.length === 1 && index < inputs.length - 1) {
+                    inputs[index + 1].focus();
+                }
+            });
+
+            // Navegación con teclado
+            input.addEventListener('keydown', (e: KeyboardEvent) => {
+                const target = e.target as HTMLInputElement;
+
+                if (e.key === 'Backspace' && target.value === '' && index > 0) {
+                    inputs[index - 1].focus();
+                    inputs[index - 1].value = '';
+                } else if (e.key === 'ArrowLeft' && index > 0) {
+                    e.preventDefault();
+                    inputs[index - 1].focus();
+                } else if (e.key === 'ArrowRight' && index < inputs.length - 1) {
+                    e.preventDefault();
+                    inputs[index + 1].focus();
+                }
+            });
+        });
+    }
+
+    AccesCode() {
+        const code = Object.values(this.code).map((e: HTMLInputElement, index) => (`${e.value}${((index+1)%3==0)?"-":""}`)).join(("")).slice(0, -1)
+        if (!this.email) this.panelStatus(false)
+        if (this.code.length == 0) return
+        if (this.email.length == 0) this.panelStatus(false)
+        const bodyData = { code:code.toUpperCase(), email: this.email }
+        console.log(bodyData);
+        
+        FETCH.post("/auth/into_access_code", bodyData).then((e) => {
+            if (e.success && e.success == true) return location.href = "?client"
+            console.log(e);
+        })
+    }
+
     render() {
         return html`
             <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
@@ -34,17 +122,28 @@ export class Index extends LitElement {
             
                             <div class="input-wrapper">
                                 <fieldset class="input-group">
-                                    <input class="code-input" maxlength="1" type="text" />
-                                    <input class="code-input" maxlength="1" type="text" />
-                                    <input class="code-input" maxlength="1" type="text" />
-                                    <input class="code-input" maxlength="1" type="text" />
-                                    <input class="code-input" maxlength="1" type="text" />
-                                    <input class="code-input" maxlength="1" type="text" />
+                                    <div class="input-section">
+                                        <input id="initInput" class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                    </div>
+                                    <span class="separator">-</span>
+                                    <div class="input-section">
+                                        <input class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                    </div>
+                                    <span class="separator">-</span>
+                                    <div class="input-section">
+                                        <input class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                        <input class="code-input" maxlength="1" type="text" />
+                                    </div>
                                 </fieldset>
                             </div>
             
                             <div class="button-wrapper">
-                                <button class="confirm-button">Confirmar</button>
+                                <button @click=${this.AccesCode} class="confirm-button">Confirmar</button>
                             </div>
                         </main>
                     </div>
@@ -56,24 +155,7 @@ export class Index extends LitElement {
                         </div>
                     </footer>
                 </div>
-            
-                <script>
-                    const inputs = document.querySelectorAll('fieldset input');
-                    inputs.forEach((input, index) => {
-                        input.addEventListener('keyup', (e) => {
-                            if (e.key >= 0 && e.key <= 9) {
-                                if (input.value.length === 1 && index < inputs.length - 1) {
-                                    inputs[index + 1].focus();
-                                }
-                            } else if (e.key === 'Backspace') {
-                                if (index > 0) {
-                                    inputs[index - 1].focus();
-                                }
-                            }
-                        });
-                    });
-                </script>
-            </div>    
+            </div>
         `;
     }
 }

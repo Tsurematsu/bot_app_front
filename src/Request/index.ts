@@ -1,4 +1,4 @@
-import { LitElement, html, unsafeCSS, css } from 'lit';
+import { LitElement, html, unsafeCSS, css, type PropertyValues } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import styles from "./styles.css?inline"
 import Script from './Script';
@@ -13,7 +13,9 @@ export class Index extends LitElement {
     @state() panelCode = false
     @state() email = ""
     render() {
-        if (this.panelCode) return `<into-code></into-code>`
+        const hash:string = window.location.hash.slice(1)
+        if (hash.length > 0) return html`<into-code .panelStatus=${(e)=>this.panelCode=e} token=${hash}></into-code>`
+        if (this.panelCode) return html`<into-code .panelStatus=${(e)=>this.panelCode=e} email=${this.email}></into-code>`
         return html`
             <link href="https://fonts.googleapis.com" rel="preconnect" />
             <link href="https://fonts.gstatic.com" rel="preconnect" />
