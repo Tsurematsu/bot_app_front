@@ -2,12 +2,13 @@ import FORM from "../../tools/FORM"
 import FETCH from "../../tools/FETCH";
 import { FORM_elements } from "../../tools/FORM";
 export default class Script{
-    public static async makeAcces(e){
+    public static async makeAcces(e, keys){
         const data = FORM(e)
         const elements = FORM_elements(e)
+        data['apiKeys'] = Object.keys(keys)
         const response = await FETCH.post('/action/makeClient', data)
         if (!response.token) {
-
+            console.log("error algun dato no es valido:", response);
             return
         }
         const url = `${window.location.origin}/?access#${response.token}`

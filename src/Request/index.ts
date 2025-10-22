@@ -1,6 +1,8 @@
 import { LitElement, html, unsafeCSS, css } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import styles from "./styles.css?inline"
+import Script from './Script';
+import './intoCode'
 export default function Request() {
     return html`<request-code></request-code>`
 }
@@ -8,7 +10,9 @@ export default function Request() {
 @customElement('request-code')
 export class Index extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
+    @state() panelCode = false
     render() {
+        if (this.panelCode) return `<into-code></into-code>`
         return html`
             <link href="https://fonts.googleapis.com" rel="preconnect" />
             <link href="https://fonts.gstatic.com" rel="preconnect" />
@@ -29,7 +33,7 @@ export class Index extends LitElement {
                         </div>
             
                         <div class="button-container">
-                            <button class="submit-button">Enviar Código</button>
+                            <button @click=${Script.request} class="submit-button">Enviar Código</button>
                         </div>
                     </main>
             

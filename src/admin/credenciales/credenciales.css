@@ -124,3 +124,165 @@ input::placeholder {
 .copy-button:active{
   background-color: #13158d;
 }
+
+/* Select de lista de claves */
+.key-selector {
+  width: 100%;
+  max-width: 100%;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(17, 115, 212, 0.5);
+  border-radius: 0.5rem;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.key-selector option {
+  background-color: #1e293b;
+  color: #fff;
+  padding: 0.5rem;
+}
+
+.key-selector:focus {
+  outline: none;
+  border-color: #1173d4;
+  box-shadow: 0 0 0 3px rgba(17, 115, 212, 0.1);
+}
+
+/* Botón agregar clave */
+.add-key-button {
+  width: 100%;
+  padding: 0.875rem 0;
+  background-color: #1173d4;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease;
+}
+
+.add-key-button:hover {
+  background-color: #0f65bd;
+}
+
+.add-key-button:active {
+  background-color: #0d5aa8;
+  transform: scale(0.98);
+}
+
+/* Lista de claves seleccionadas */
+.selected-keys-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.selected-keys-list:empty::before {
+  content: "No hay claves seleccionadas";
+  display: block;
+  padding: 1.5rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 0.875rem;
+}
+
+/* Items de la lista */
+.key-item {
+  padding: 0.875rem 1rem;
+  margin: 0 0 0.5rem 0;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(17, 115, 212, 0.3);
+  border-radius: 0.5rem;
+  color: #e2e8f0;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+}
+
+.key-item:last-child {
+  margin-bottom: 0;
+}
+
+.key-item:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(17, 115, 212, 0.5);
+  transform: translateX(2px);
+}
+
+/* Texto del item */
+.key-item-text {
+  flex: 1;
+  word-break: break-word;
+}
+
+/* Botón eliminar dentro de cada item (opcional) */
+.remove-key-button {
+  width: auto;
+  padding: 0.375rem 0.75rem;
+  margin: 0 0 0 1rem;
+  background-color: rgba(220, 53, 69, 0.8);
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 0.375rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.remove-key-button:hover {
+  background-color: rgba(220, 53, 69, 1);
+}
+
+.remove-key-button:active {
+  background-color: rgba(200, 35, 51, 1);
+  transform: scale(0.95);
+}
+
+/* Scrollbar personalizado para la lista */
+.selected-keys-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.selected-keys-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.selected-keys-list::-webkit-scrollbar-thumb {
+  background: rgba(17, 115, 212, 0.5);
+  border-radius: 3px;
+}
+
+.selected-keys-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(17, 115, 212, 0.7);
+}
+
+/* Animación para nuevos elementos */
+@keyframes slideInKey {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.key-item {
+  animation: slideInKey 0.2s ease;
+}

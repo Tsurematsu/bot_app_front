@@ -1,7 +1,7 @@
 import { customElement } from 'lit/decorators.js';
 import { LitElement, html, unsafeCSS, css } from 'lit';
 import styles from  "./styles.css?inline"
-@customElement('index')
+@customElement('into-code')
 export class Index extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     render() {
