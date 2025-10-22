@@ -1,5 +1,5 @@
 import { LitElement, html, unsafeCSS, css } from 'lit';
-import { customElement, state } from 'lit/decorators.js';
+import { customElement, query, state } from 'lit/decorators.js';
 import styles from "./styles.css?inline"
 import Script from './Script';
 import './intoCode'
@@ -11,6 +11,7 @@ export default function Request() {
 export class Index extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     @state() panelCode = false
+    @state() email = ""
     render() {
         if (this.panelCode) return `<into-code></into-code>`
         return html`
@@ -29,11 +30,18 @@ export class Index extends LitElement {
             
                         <div class="input-container">
                             <label class="visually-hidden" for="email">Correo electrónico</label>
-                            <input class="email-input" id="email" placeholder="Correo electrónico" type="email" />
+                            <input
+                                .value=${this.email} 
+                                class="email-input" 
+                                id="email" 
+                                placeholder="Correo electrónico" 
+                                type="email"
+                                @input=${(e: Event) => this.email = (e.target as HTMLInputElement).value}
+                            />
                         </div>
             
                         <div class="button-container">
-                            <button @click=${Script.request} class="submit-button">Enviar Código</button>
+                            <button @click=${()=>Script.request(this.email, (e)=>{this.panelCode=e})} class="submit-button">Enviar Código</button>
                         </div>
                     </main>
             
