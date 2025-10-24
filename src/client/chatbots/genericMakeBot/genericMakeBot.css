@@ -1,0 +1,257 @@
+:host {
+    --primary-color: #0d7ff2;
+    --primary-hover: rgba(13, 127, 242, 0.9);
+    --primary-focus: rgba(13, 127, 242, 0.5);
+    --background-dark: #101922;
+    --background-input: #223649;
+    --text-primary: #ffffff;
+    --text-secondary: #90adcb;
+    --text-placeholder: #90adcb;
+    --overlay-hover: rgba(255, 255, 255, 0.05);
+
+    /* Espaciados */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.25rem;
+    --spacing-xl: 2rem;
+
+    /* Tamaños */
+    --input-height: 3.5rem;
+    --border-radius: 0.5rem;
+    --max-width: 24rem;
+
+    display: block;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.main-container {
+    min-height: 100vh;
+    min-height: 100dvh;
+    width: 100%;
+    background-color: var(--background-dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-md);
+}
+
+/* Wrapper del formulario */
+.form-wrapper {
+    width: 100%;
+    max-width: var(--max-width);
+}
+
+/* Título */
+.form-title {
+    color: var(--text-primary);
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* Contenedor de campos */
+.form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-lg);
+}
+
+/* Labels y campos */
+.field-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.field-label {
+    color: var(--text-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+    line-height: 1.25;
+    margin-bottom: var(--spacing-xs);
+}
+
+/* Inputs base */
+.input-field {
+    width: 100%;
+    height: var(--input-height);
+    padding: var(--spacing-md);
+    background-color: var(--background-input);
+    border: none;
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    transition: box-shadow 0.2s ease;
+}
+
+.input-field::placeholder {
+    color: var(--text-placeholder);
+    opacity: 1;
+}
+
+.input-field:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary-focus);
+}
+
+/* Contenedor de contraseña con icono */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper .input-field {
+    padding-right: 3rem;
+}
+
+.password-toggle {
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s ease;
+}
+
+.password-toggle:hover {
+    color: var(--text-primary);
+}
+
+.password-toggle:focus {
+    outline: 2px solid var(--primary-focus);
+    outline-offset: 2px;
+    border-radius: 0.25rem;
+}
+
+/* Iconos Material Symbols */
+.icon {
+    font-family: 'Material Symbols Outlined';
+    font-weight: 400;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Contenedor de botones */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl);
+}
+
+/* Botón base */
+.button {
+    width: 100%;
+    height: var(--input-height);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.disabled{
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Botón primario */
+.button-primary {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.button-primary:hover {
+    background-color: var(--primary-hover);
+}
+
+.button-primary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-dark), 0 0 0 4px var(--primary-color);
+}
+
+.button-primary:active {
+    transform: translateY(1px);
+}
+
+/* Botón secundario */
+.button-secondary {
+    background-color: transparent;
+    color: var(--text-secondary);
+}
+
+.button-secondary:hover {
+    background-color: var(--overlay-hover);
+}
+
+.button-secondary:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-dark), 0 0 0 4px var(--primary-color);
+}
+
+.button-secondary:active {
+    transform: translateY(1px);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .main-container {
+        padding: var(--spacing-sm);
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .field-label {
+        font-size: 0.8125rem;
+    }
+
+    .input-field,
+    .button {
+        font-size: 0.9375rem;
+    }
+}
+
+/* Accesibilidad - Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

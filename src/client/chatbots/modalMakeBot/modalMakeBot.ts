@@ -12,14 +12,15 @@ export class ModalMakeBot extends LitElement {
   static styles = css`${unsafeCSS(styles)}`;
   @property()
   acceptCallback: (e: string) => void = (_x) => { };
-
-  @property()
-  cancelCallback: () => void = () => { }
-
+  
   @state()
   public statusModal: boolean = false;
 
-  private selectedBot: string = '';
+
+  private accept(seleccionado: string) {
+    this.acceptCallback(seleccionado);
+    this.statusModal = false;
+  }
 
   render() {
     if (!this.statusModal) return html``;
@@ -30,24 +31,22 @@ export class ModalMakeBot extends LitElement {
             <h2>Crear Nuevo Bot</h2>
           </div>
           <div>
-            <span>Lista de bots</span>
-            <ul>
-              <li @click=${() => this.selectedBot = 'WhatsApp'}>
-                WhatsApp
-              </li>
+              <span>Lista de bots</span>
+              <ul>
+                <li @click=${() => this.accept('WhatsApp')}>
+                  WhatsApp
+                </li>
 
-              <li @click=${() => this.selectedBot = 'MarketPlace'}>
-                MarketPlace
-              </li>
+                <li @click=${() => this.accept('MarketPlace')}>
+                  MarketPlace
+                </li>
 
-              <li @click=${() => this.selectedBot = 'Instagram'}>
-                Instagram
-              </li>
-            </ul>
-          </div>
+                <li @click=${() => this.accept('Instagram')}>
+                  Instagram
+                </li>
+              </ul>
+            </div>
             <div>
-              <button class="close-btn" @click=${() => { this.cancelCallback(); this.statusModal = false; }}>Cancelar</button>
-            <button class="close-btn" @click=${() => { this.acceptCallback(this.selectedBot); this.statusModal = false; }}>Aceptar</button>
             </div>
           </div>
       </div>
