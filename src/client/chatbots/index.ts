@@ -6,6 +6,7 @@ import { ModalMakeBot } from './modalMakeBot/modalMakeBot';
 import { type configBotProps } from './genericMakeBot';
 import './modalConfirm';
 import type { ModalConfirm } from './modalConfirm';
+import FETCH from '../../tools/FETCH';
 
 export default function chatbots(){
     return html`
@@ -95,19 +96,51 @@ export class ChatbotsClass extends LitElement {
         }
         types[bot]?.();
     }
-
-    makeBotAcceptCallback(elements:NodeListOf<HTMLInputElement>){
+    requestStatusInterval = null;
+    async makeBotAcceptCallback(elements:NodeListOf<HTMLInputElement>){
         const data = Array.from(elements).reduce((acc, input) => {
             acc[input.id] = input.value;
             return acc;
         }, {} as Record<string, string>);
         if (this.openTypeBot == "WhatsApp") {
             this.enableButtons = false;
-
+            this.modalConfirmBotElement.open = true;
+            this.requestStatusInterval = setInterval(async ()=>{
+                // estos son los estados que retorna el bot
+                //{ 
+                //     log: this.Log,
+                //     app: this.App,
+                //     login: this.Login,
+                //     code: this.Code,
+                //     listen: this.Listen,
+                //     isRunning: this.child !== null
+                // }
+                // type AppStatus = "off" | "loading" | "on"
+                const res = await FETCH.post('/action/Whatsapp/status', data['phone']);
+                this.modalConfirmBotElement.code = res.code;
+                if (res.app == 'on') {
+                    this.modalConfirmBotElement.open = false;
+                    this.makeBot = false;
+                    this.enableButtons = true;
+                    if (this.requestStatusInterval) {
+                        clearInterval(this.requestStatusInterval);
+                        this.requestStatusInterval = null;
+                    }
+                }
+            }, 500);
+            if (!data['phone']) return;
+            await FETCH.post('/action/Whatsapp/make', {phone: data['phone']})
         }
-        this.modalConfirmBotElement.code = "123456";
-        this.modalConfirmBotElement.open = true;
 
+    }
+
+    onCancelMakeBot = () => {
+        this.makeBot = false;
+        this.enableButtons = true;
+        if (this.requestStatusInterval) {
+            clearInterval(this.requestStatusInterval);
+            this.requestStatusInterval = null;
+        }
     }
 
     render() {
@@ -116,7 +149,7 @@ export class ChatbotsClass extends LitElement {
             <modal-confirm id="modal-confirm-bot"></modal-confirm>
             <generic-make-bot-panel 
                 .onVincule=${(e) => this.makeBotAcceptCallback(e)} 
-                .onCancel=${()=>{this.makeBot = false; this.enableButtons = true;}} 
+                .onCancel=${this.onCancelMakeBot} 
                 .config=${this.configureBot} 
                 .title=${this.configBotTitle} 
                 .type=${this.openTypeBot},
