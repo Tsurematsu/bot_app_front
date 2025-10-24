@@ -105,6 +105,9 @@ export class ChatbotsClass extends LitElement {
         if (this.openTypeBot == "WhatsApp") {
             this.enableButtons = false;
             this.modalConfirmBotElement.open = true;
+            if (!data['phone']) return;
+            const resInto = await FETCH.post('/action/Whatsapp/make', {phone: data['phone']})
+            console.log({resInto});
             this.requestStatusInterval = setInterval(async ()=>{
                 // estos son los estados que retorna el bot
                 //{ 
@@ -116,9 +119,13 @@ export class ChatbotsClass extends LitElement {
                 //     isRunning: this.child !== null
                 // }
                 // type AppStatus = "off" | "loading" | "on"
-                const res = await FETCH.post('/action/Whatsapp/status', data['phone']);
-                this.modalConfirmBotElement.code = res.code;
-                if (res.app == 'on') {
+                const res = await FETCH.post('/action/Whatsapp/status', {phone: data['phone']});
+                console.log({status:res.status});
+                const code = res.status.code;
+                const app = res.status.app;
+                if (!code) return;
+                this.modalConfirmBotElement.code = code;
+                if (app == 'on') {
                     this.modalConfirmBotElement.open = false;
                     this.makeBot = false;
                     this.enableButtons = true;
@@ -127,9 +134,7 @@ export class ChatbotsClass extends LitElement {
                         this.requestStatusInterval = null;
                     }
                 }
-            }, 500);
-            if (!data['phone']) return;
-            await FETCH.post('/action/Whatsapp/make', {phone: data['phone']})
+            }, 1000);
         }
 
     }
