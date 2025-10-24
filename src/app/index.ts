@@ -3,11 +3,11 @@ import { customElement, property, state } from 'lit/decorators.js'
 import styles from './app.css?inline'
 import login from '../login'
 import admin from '../admin'
+import homePage from '../home'
 import AccessClient from '../Access'
 import page404 from '../htmlCodes/page404'
 import client from '../client'
 import Request from '../Request'
-
 @customElement('app-el')
 export class appClass extends LitElement {
   static styles = css`${unsafeCSS(styles)}`
@@ -19,8 +19,8 @@ export class appClass extends LitElement {
   }
   private getUrl = ()=>this.ofRoute()
   private routes = {
+    "/":homePage,
     "/login":login,
-    "/":login,
     "/admin":admin,
     "/request":Request,
     "/client":client,

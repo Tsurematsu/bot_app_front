@@ -1,0 +1,175 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
+
+/* Variables CSS */
+:host {
+    --primary: #137fec;
+    --background-light: #f6f7f8;
+    --background-dark: #101922;
+    --slate-50: #f8fafc;
+    --slate-200: #e2e8f0;
+    --slate-300: #cbd5e1;
+    --slate-400: #94a3b8;
+    --slate-500: #64748b;
+    --slate-600: #475569;
+    --slate-700: #334155;
+    --slate-800: #1e293b;
+    --slate-900: #0f172a;
+}
+
+/* Reset y configuración base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--background-light);
+    color: var(--slate-800);
+    min-height: max(884px, 100dvh);
+}
+
+/* Dark mode */
+html.dark .body {
+    background-color: var(--background-dark);
+    color: var(--slate-200);
+}
+
+/* Configuración de iconos Material Symbols */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Contenedor principal */
+.container {
+    position: relative;
+    display: flex;
+    height: auto;
+    min-height: 100vh;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 2rem;
+}
+
+/* Wrapper del ícono */
+.icon-wrapper {
+    margin-bottom: 2rem;
+    color: var(--slate-400);
+}
+
+html.dark .icon-wrapper {
+    color: var(--slate-600);
+}
+
+/* SVG Círculo de fondo */
+.circle-bg {
+    stroke: var(--slate-300);
+}
+
+html.dark .circle-bg {
+    stroke: var(--slate-700);
+}
+
+/* SVG Path primario */
+.path-primary {
+    stroke: var(--primary);
+}
+
+/* SVG Path secundario */
+.path-secondary {
+    stroke: var(--slate-400);
+}
+
+html.dark .path-secondary {
+    stroke: var(--slate-500);
+}
+
+/* Título principal */
+.headline {
+    color: var(--slate-900);
+    letter-spacing: -0.025em;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    padding-bottom: 0.75rem;
+}
+
+html.dark .headline {
+    color: var(--slate-50);
+}
+
+/* Texto del cuerpo */
+.body-text {
+    color: var(--slate-600);
+    max-width: 24rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    padding-bottom: 0.75rem;
+    padding-top: 0.25rem;
+    text-align: center;
+}
+
+html.dark .body-text {
+    color: var(--slate-400);
+}
+
+/* Wrapper del botón */
+.button-wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 20rem;
+    padding: 0.75rem 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Botón principal */
+.primary-button {
+    display: flex;
+    min-width: 84px;
+    max-width: 480px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.75rem;
+    height: 3rem;
+    padding: 0 1.25rem;
+    flex: 1;
+    background-color: var(--primary);
+    color: var(--slate-50);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.015em;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: none;
+    transition: all 0.2s ease;
+}
+
+.primary-button:hover {
+    opacity: 0.9;
+}
+
+.primary-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--background-light), 0 0 0 4px var(--primary);
+}
+
+html.dark .primary-button:focus {
+    box-shadow: 0 0 0 2px var(--background-dark), 0 0 0 4px var(--primary);
+}
+
+/* Texto del botón */
+.button-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
