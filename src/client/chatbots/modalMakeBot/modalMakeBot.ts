@@ -47,6 +47,7 @@ export class ModalMakeBot extends LitElement {
               </ul>
             </div>
             <div>
+              <button @click=${() => (this.statusModal = false)}>Cerrar</button>
             </div>
           </div>
       </div>

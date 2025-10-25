@@ -1,4 +1,4 @@
-import { css, html, LitElement, unsafeCSS } from 'lit';
+import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import styles from './chatbots.css?inline'
 import configBot from './configBot';
@@ -18,6 +18,41 @@ export default function chatbots(){
 export class ChatbotsClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
 
+    @state()
+    private listChatbot = [];
+    getChatbotList = async () => {
+        // Esto es lo que retorna el fetch
+        // {
+        //     "id": 3,
+        //     "user_id": "2",
+        //     "user_name": "Jose Daniel Solano",
+        //     "user_phone": "573507809645",
+        //     "user_email": "daniel120802@gmail.com",
+        //     "user_password": "",
+        //     "bot_process": "2-RWKSN",
+        //     "bot_type": "WhatsappAi",
+        //     "bot_status": "creating",
+        //     "bot_phone": "573507809645",
+        //     "bot_prompt": "",
+        //     "bot_email": "",
+        //     "bot_password": "",
+        //     "created_at": "2025-10-25T00:44:09.622Z",
+        //     "updated_at": "2025-10-25T00:44:09.622Z"
+        // }
+        const res = await FETCH.get('/bots/list');
+        if (!res.success) return console.log("Error fetching chatbot list");
+        
+        this.listChatbot = res.data;
+    }
+    images = {
+        "WhatsappAi": html`<img src="/public/whastapp.png" alt="">`,
+        "MarketPlaceAi": html`<img src="/public/marketplace.png" alt="">`,
+        "InstagramAi": html`<img src="/public/instagram.png" alt="">`
+    }
+
+    protected firstUpdated(_changedProperties: PropertyValues): void {
+        this.getChatbotList();
+    }
     
     @state() 
     private openConfig = false;
@@ -39,7 +74,7 @@ export class ChatbotsClass extends LitElement {
     modalConfirmBotElement!: ModalConfirm
 
     @state()
-    private makeBot = false;
+    private makeBotPanel = false;
     @state()
     private enableButtons = true;
     
@@ -62,7 +97,7 @@ export class ChatbotsClass extends LitElement {
                 password: false,
                 phone: true
             }
-            this.makeBot = true;
+            this.makeBotPanel = true;
         }
 
         const makeBotByMarketPlace = () => {
@@ -74,7 +109,7 @@ export class ChatbotsClass extends LitElement {
                 password: true,
                 phone: false
             }
-            this.makeBot = true;
+            this.makeBotPanel = true;
         }
 
         const makeBotByInstagram = () => {
@@ -86,7 +121,7 @@ export class ChatbotsClass extends LitElement {
                 password: true,
                 phone: false
             }
-            this.makeBot = true;
+            this.makeBotPanel = true;
         }
 
         const types = {
@@ -107,7 +142,8 @@ export class ChatbotsClass extends LitElement {
             this.modalConfirmBotElement.open = true;
             if (!data['phone']) return;
             const resInto = await FETCH.post('/action/Whatsapp/make', {phone: data['phone']})
-            console.log({resInto});
+            if (!resInto.success) return;
+            const idProceso_bot = resInto.idProceso_bot;
             this.requestStatusInterval = setInterval(async ()=>{
                 // estos son los estados que retorna el bot
                 //{ 
@@ -119,15 +155,14 @@ export class ChatbotsClass extends LitElement {
                 //     isRunning: this.child !== null
                 // }
                 // type AppStatus = "off" | "loading" | "on"
-                const res = await FETCH.post('/action/Whatsapp/status', {phone: data['phone']});
-                console.log({status:res.status});
+                const res = await FETCH.post('/action/Whatsapp/status', {idProceso_bot});
                 const code = res.status.code;
                 const app = res.status.app;
                 if (!code) return;
                 this.modalConfirmBotElement.code = code;
                 if (app == 'on') {
                     this.modalConfirmBotElement.open = false;
-                    this.makeBot = false;
+                    this.makeBotPanel = false;
                     this.enableButtons = true;
                     if (this.requestStatusInterval) {
                         clearInterval(this.requestStatusInterval);
@@ -140,7 +175,7 @@ export class ChatbotsClass extends LitElement {
     }
 
     onCancelMakeBot = () => {
-        this.makeBot = false;
+        this.makeBotPanel = false;
         this.enableButtons = true;
         if (this.requestStatusInterval) {
             clearInterval(this.requestStatusInterval);
@@ -150,7 +185,7 @@ export class ChatbotsClass extends LitElement {
 
     render() {
         if (this.openConfig) return configBot(this.closePanel, this.namePanel);
-        if (this.makeBot) return html`
+        if (this.makeBotPanel) return html`
             <modal-confirm id="modal-confirm-bot"></modal-confirm>
             <generic-make-bot-panel 
                 .onVincule=${(e) => this.makeBotAcceptCallback(e)} 
@@ -173,26 +208,19 @@ export class ChatbotsClass extends LitElement {
             </div>
 
             <div class="api-list">
-                <!-- API Item 1 -->
-                <div @click=${()=>this.openPanel("WhatsApp")} class="api-item active">
-                    <div class="api-icon"><img src="/public/whastapp.png" alt=""></div>
+                ${this.listChatbot.map(bot =>html`
+                <div @click=${()=>this.openPanel(bot.bot_type)} class="api-item ${bot.bot_status=="active" ? 'active' :
+                    'inactive'}">
+                    <div class="api-icon">${this.images.WhatsappAi}</div>
                     <div class="api-content">
-                        <p class="api-title">WhatsApp Chat</p>
-                        <div class="api-status active">Active</div>
+                        <p class="api-title">${bot.bot_type} Chat</p>
+                        <div class="api-status ${bot.bot_status=="active" ? 'active' : 'inactive'}">${bot.bot_status=="active" ? 'Active' : 'Inactive'}</div>
                     </div>
                     <div class="api-arrow"><img src="/public/angulo.png" alt=""></div>
                 </div>
-
-                <!-- API Item 2 -->
-                <div @click=${()=>this.openPanel("marktplace")} class="api-item inactive">
-                    <div class="api-icon"><img src="/public/marketplace.png" alt=""></div>
-                    <div class="api-content">
-                        <p class="api-title">MarketPlace Chat</p>
-                        <div class="api-status inactive">Inactive</div>
-                    </div>
-                    <div class="api-arrow"><img src="/public/angulo.png" alt=""></div>
-                </div>
+                `)}
             </div>
         `;
     }
 }
+

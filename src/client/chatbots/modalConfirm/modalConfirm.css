@@ -122,3 +122,10 @@
         transform: scale(1);
     }
 }
+
+.onLoading{
+    text-align: center;
+    img{
+        border-radius: 10px;
+    }
+}

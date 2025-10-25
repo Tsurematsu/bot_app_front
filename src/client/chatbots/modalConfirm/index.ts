@@ -41,6 +41,12 @@ export class ModalConfirm extends LitElement {
                       <img src="${this.imageBase64}" alt="Captcha" class="captcha" />
                   </div>
                   `:""}
+                  ${this.imageBase64.length == 0 && this.code.length == 0 ? html`
+                    <div class="section onLoading">
+                      <h3>Espere mientras preparamos su bot...</h3>
+                      <img src="/public/configuracion-de-la-aplicacion-movil.gif" width="100" alt="">
+                    </div>
+                  `:""}
               </section>
           </div>
       </div>
