@@ -1,5 +1,5 @@
 export default class FETCH {
-    public static url = "http://localhost:3000";
+    public static url =window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";
 
     /** Opciones comunes para enviar cookies */
     private static defaultOptions(): RequestInit {

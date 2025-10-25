@@ -11,6 +11,7 @@ import Request from '../Request'
 @customElement('app-el')
 export class appClass extends LitElement {
   static styles = css`${unsafeCSS(styles)}`
+  public static pageProduction = "https://www.chatbotapp.shop/"
   @state()
   private current = "/"
   private setUrl = (url)=>{

@@ -1,8 +1,9 @@
 import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property, query, state } from 'lit/decorators.js';
 import styles from './configBot.css?inline'
 import FETCH from '../../../tools/FETCH';
-
+import "./NotificacionAutomatica"
+import type { NotificacionAutomatica } from './NotificacionAutomatica';
 @customElement('config_bot-el')
 export class config_botClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
@@ -10,6 +11,9 @@ export class config_botClass extends LitElement {
     @property() titleCard = 'app'
     @property() bot_process = ""
     @property() type=""
+
+    @query('notificacion-automatica')
+    private notificacionAutomatica:NotificacionAutomatica;
 
     @state()
     private botActive = false
@@ -32,13 +36,13 @@ export class config_botClass extends LitElement {
             return
         }
         if (this.botActive && resIntoStatus.success) {
-            const getChats = await FETCH.post('/action/Whatsapp/getChats', {idProceso_bot:this.bot_process})
-            console.log(getChats);
+            
         }
     }
 
     render() {
         return html`
+            <notificacion-automatica></notificacion-automatica>
             <div class="app-container">  
             <!-- Encabezado -->
             <header class="header">
@@ -47,7 +51,14 @@ export class config_botClass extends LitElement {
             </header>
             <!-- Contenido Principal -->
             <main class="main">
-            <div class="card">
+            <div @click=${async ()=>{
+                this.notificacionAutomatica.open = true
+                const getChats = await FETCH.post('/action/Whatsapp/getChats', {idProceso_bot:this.bot_process})
+                const elements = Object.values(getChats.chats).filter(e=>e["fijado"]=true)
+                const range = elements.slice(0, 5)
+                this.notificacionAutomatica.listChats = range 
+                // console.log(getChats);
+            }} class="card">
                 <div class="card-icon">
                     <img width="30" src="/public/restaurar.png" alt="">
                 </div>
