@@ -57,6 +57,10 @@
 
 .section {
     margin-bottom: 1rem;
+    transition: all 100ms ease-in-out;
+    &:active{
+        background-color: #2f73e0;
+    }
 }
 
 .section h3 {

@@ -30,7 +30,7 @@ export class ModalConfirm extends LitElement {
               </header>
               <section class="modal-body">
                   ${this.code.length > 0 ? html`
-                    <div class="section">
+                    <div @click=${async ()=>{await navigator.clipboard.writeText(this.code);}} class="section">
                       <h3>Ingrese el código en su dispositivo</h3>
                       <p class="code"><strong>${this.code}</strong></p>
                   </div>
