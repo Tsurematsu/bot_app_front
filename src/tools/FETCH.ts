@@ -13,9 +13,7 @@ export default class FETCH {
 
     /** GET request */
     public static async get(endpoint: string) {
-        this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";
-        console.log(this.url);
-        
+        this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";   
         try {
             const res = await fetch(`${this.url}${endpoint}`, {
                 ...this.defaultOptions(),
@@ -23,8 +21,6 @@ export default class FETCH {
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             const response = await res.json();
-            console.log("->", response);
-            
             return response
         } catch (err) {
             // console.error("FETCH GET error:", err);
@@ -35,7 +31,6 @@ export default class FETCH {
     /** POST request */
     public static async post(endpoint: string, data: any = {}) {
          this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";
-         console.log(this.url);
         try {
             const res = await fetch(`${this.url}${endpoint}`, {
                 ...this.defaultOptions(),
@@ -44,7 +39,6 @@ export default class FETCH {
             });
             if (!res.ok) throw new Error(`Error ${res.status}`);
             const response =  await res.json();
-            console.log("->", response);
             return response
         } catch (err) {
             // console.error("FETCH POST error:", err);
