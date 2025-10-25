@@ -1,6 +1,7 @@
 import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, property, state } from 'lit/decorators.js';
 import styles from './configBot.css?inline'
+import FETCH from '../../../tools/FETCH';
 
 @customElement('config_bot-el')
 export class config_botClass extends LitElement {
@@ -10,10 +11,32 @@ export class config_botClass extends LitElement {
     @property() bot_process = ""
     @property() type=""
 
+    @state()
+    private botActive = false
+
     protected firstUpdated(_changedProperties: PropertyValues): void {
-        console.log("Hello", this.bot_process);
-        
+        this.init()
     }
+
+    async init(){
+        const resInto = await FETCH.post('/action/Whatsapp/status', {idProceso_bot:this.bot_process})
+        this.botActive = resInto.success
+    }
+
+    async onActiveBot(){
+        const resIntoStatus = await FETCH.post('/action/Whatsapp/status', {idProceso_bot:this.bot_process})
+        
+        if (!this.botActive && !resIntoStatus.success) {
+            const resInto = await FETCH.post('/action/Whatsapp/link', {idProceso_bot:this.bot_process})
+            this.botActive = resInto.success
+            return
+        }
+        if (this.botActive && resIntoStatus.success) {
+            const getChats = await FETCH.post('/action/Whatsapp/getChats', {idProceso_bot:this.bot_process})
+            console.log(getChats);
+        }
+    }
+
     render() {
         return html`
             <div class="app-container">  
@@ -35,14 +58,14 @@ export class config_botClass extends LitElement {
             </div>
 
             <!-- Activar / Desactivar -->
-            <div class="card">
+            <div @click=${this.onActiveBot} class="card">
                 <div class="card-icon"><img width="30" src="/public/restaurar.png" alt=""></div>
                 <div class="card-text">
                 <p>Activar/Desactivar</p>
                 <p>Activa o desactiva el bot.</p>
                 </div>
                 <label class="switch">
-                <input type="checkbox">
+                <input type="checkbox" ?checked=${this.botActive}>
                 <span class="slider"></span>
                 </label>
             </div>
@@ -51,7 +74,7 @@ export class config_botClass extends LitElement {
                 <div class="card-icon"><img width="30" src="/public/restaurar.png" alt=""></div>
                 <div class="card-text">
                 <p>Agendamiento automático</p>
-                <p>Activa o desactiva el agendamiento automático.</p>
+                <p>Activa o desactiva <br> el agendamiento automático.</p>
                 </div>
                 <label class="switch">
                 <input type="checkbox">
