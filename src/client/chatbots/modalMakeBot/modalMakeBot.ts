@@ -63,7 +63,11 @@ export class ModalMakeBot extends LitElement {
                   </li>
                 `:""}
 
-                
+                ${!this.WhatsappOption && !this.MarketPlaceOption && !this.InstagramOption?html`
+                    <li @click=${() => this.accept('Instagram')}>
+                      Alcanzaste el limite de bots!
+                    </li>
+                  `:""}
 
                 
               </ul>

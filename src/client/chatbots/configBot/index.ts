@@ -1,16 +1,19 @@
-import { css, html, LitElement, unsafeCSS } from 'lit';
+import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import styles from './configBot.css?inline'
-export default function configBot(closePanel, titleCard){
-    return html`
-        <config_bot-el .closePanel=${closePanel} titleCard=${titleCard}></config_bot-el>
-    `
-}
+
 @customElement('config_bot-el')
 export class config_botClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     @property() closePanel = ()=>{}
     @property() titleCard = 'app'
+    @property() bot_process = ""
+    @property() type=""
+
+    protected firstUpdated(_changedProperties: PropertyValues): void {
+        console.log("Hello", this.bot_process);
+        
+    }
     render() {
         return html`
             <div class="app-container">  
@@ -21,36 +24,50 @@ export class config_botClass extends LitElement {
             </header>
             <!-- Contenido Principal -->
             <main class="main">
-                <!-- Activar / Desactivar -->
-                <div class="card">
-                    <div class="card-icon"><img width="30" src="/public/restaurar.png" alt=""></div>
-                    <div class="card-text">
-                        <p>Activar/Desactivar</p>
-                        <p>Activa o desactiva tus APIs</p>
-                    </div>
-                    <label class="switch">
-                        <input type="checkbox">
-                        <span class="slider"></span>
-                    </label>
+            <div class="card">
+                <div class="card-icon">
+                    <img width="30" src="/public/restaurar.png" alt="">
                 </div>
-                <!-- Vincular -->
-                <a class="card" href="#">
-                    <div class="card-icon"><img width="25" src="/public/enlaces.png" alt=""></div>
-                    <p class="card-label">Vincular</p>
-                    <img width="30" src="/public/flecha-next.png" alt="">
-                </a>
-                <!-- Respuestas -->
-                <a class="card" href="#">
-                    <div class="card-icon"><img width="40" src="/public/conversaciones.png" alt=""></div>
-                    <p class="card-label">Respuestas</p>
-                    <img width="30" src="/public/flecha-next.png" alt="">
-                </a>
-                <!-- Opciones Avanzadas -->
-                <a class="card" href="#">
-                    <div class="card-icon"> <img width="30" src="/public/pro.png" alt=""></div>
-                    <p class="card-label">Opciones Avanzadas</p>
-                    <img width="30" src="/public/flecha-next.png" alt="">
-                </a>
+                <div class="card-text">
+                    <p>Notificación automática</p>
+                    <p>Notifica a clientes potenciales <br> mediante un contacto privado</p>
+                </div>
+            </div>
+
+            <!-- Activar / Desactivar -->
+            <div class="card">
+                <div class="card-icon"><img width="30" src="/public/restaurar.png" alt=""></div>
+                <div class="card-text">
+                <p>Activar/Desactivar</p>
+                <p>Activa o desactiva el bot.</p>
+                </div>
+                <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+                </label>
+            </div>
+
+            <div class="card">
+                <div class="card-icon"><img width="30" src="/public/restaurar.png" alt=""></div>
+                <div class="card-text">
+                <p>Agendamiento automático</p>
+                <p>Activa o desactiva el agendamiento automático.</p>
+                </div>
+                <label class="switch">
+                <input type="checkbox">
+                <span class="slider"></span>
+                </label>
+            </div>
+            
+            <!-- Vincular -->
+            <!-- <a class="card" href="#">
+                <div class="card-icon"><img width="25" src="/public/enlaces.png" alt=""></div>
+                <p class="card-label">Volver a vincular</p>
+                <img width="30" src="/public/flecha-next.png" alt="">
+            </a> -->
+            <!-- Respuestas -->
+            
+            
 
             </main>
         </div>

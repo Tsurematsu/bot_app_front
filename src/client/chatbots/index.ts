@@ -1,12 +1,14 @@
 import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import styles from './chatbots.css?inline'
-import configBot from './configBot';
 import { ModalMakeBot } from './modalMakeBot/modalMakeBot';
 import { type configBotProps } from './genericMakeBot';
 import './modalConfirm';
 import type { ModalConfirm } from './modalConfirm';
+import "./configBot/index.ts"
+import "./EnDesarrolloComponent/index.ts"
 import FETCH from '../../tools/FETCH';
+import type { EnDesarrolloComponent } from './EnDesarrolloComponent/index.ts';
 
 export default function chatbots(){
     return html`
@@ -17,6 +19,8 @@ export default function chatbots(){
 @customElement('chatbots-el')
 export class ChatbotsClass extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
+
+    
 
     @state()
     private listChatbot = [];
@@ -50,6 +54,8 @@ export class ChatbotsClass extends LitElement {
         "InstagramAi": html`<img src="/public/instagram.png" alt="">`
     }
 
+    @state()
+    private openDevPanel = false
     protected firstUpdated(_changedProperties: PropertyValues): void {
         this.getChatbotList();
     }
@@ -57,9 +63,13 @@ export class ChatbotsClass extends LitElement {
     @state() 
     private openConfig = false;
     private namePanel = '';
-    private openPanel = (name) => {
+    private bot_process = '';
+    private bot_type = ''
+    private openPanel = (name, bot_process, bot_type) => {
         this.namePanel = name; 
         this.openConfig = true;
+        this.bot_process = bot_process;
+        this.bot_type = bot_type;
     }
     private closePanel = () => {
         this.openConfig = false;
@@ -72,7 +82,7 @@ export class ChatbotsClass extends LitElement {
     modalSelectOptionsBot!: ModalMakeBot
 
     @query('#modal-confirm-bot')
-    modalConfirmBotElement!: ModalConfirm
+    modalMessageVinculeBot!: ModalConfirm
 
     @state()
     private makeBotPanel = false;
@@ -88,7 +98,7 @@ export class ChatbotsClass extends LitElement {
         phone: true
     }
     // Método para añadir un nuevo bot
-    private ModalAddBotAccept = (bot: string) => {
+    private ModalSelectBotAccept = (bot: string) => {
         const makeBotByWhatsApp = () => {
             this.configBotTitle = 'Vincule su bot de WhatsApp';
             this.openTypeBot = 'WhatsApp';
@@ -102,27 +112,31 @@ export class ChatbotsClass extends LitElement {
         }
 
         const makeBotByMarketPlace = () => {
-            this.configBotTitle = 'Vincule su bot de MarketPlace';
-            this.openTypeBot = 'MarketPlace';
-            this.configureBot = {
-                email: true,
-                username: false,
-                password: true,
-                phone: false
-            }
-            this.makeBotPanel = true;
+            this.openDevPanel = true
+            
+            // this.configBotTitle = 'Vincule su bot de MarketPlace';
+            // this.openTypeBot = 'MarketPlace';
+            // this.configureBot = {
+            //     email: true,
+            //     username: false,
+            //     password: true,
+            //     phone: false
+            // }
+            // this.makeBotPanel = true;
         }
 
         const makeBotByInstagram = () => {
-            this.configBotTitle = 'Vincule su bot de Instagram';
-            this.openTypeBot = 'Instagram';
-            this.configureBot = {
-                email: false,
-                username: true,
-                password: true,
-                phone: false
-            }
-            this.makeBotPanel = true;
+            this.openDevPanel = true
+            
+            // this.configBotTitle = 'Vincule su bot de Instagram';
+            // this.openTypeBot = 'Instagram';
+            // this.configureBot = {
+            //     email: false,
+            //     username: true,
+            //     password: true,
+            //     phone: false
+            // }
+            // this.makeBotPanel = true;
         }
 
         const types = {
@@ -133,6 +147,7 @@ export class ChatbotsClass extends LitElement {
         types[bot]?.();
     }
     requestStatusInterval = null;
+    
     async makeBotAcceptCallback(elements:NodeListOf<HTMLInputElement>){
         const data = Array.from(elements).reduce((acc, input) => {
             acc[input.id] = input.value;
@@ -140,7 +155,7 @@ export class ChatbotsClass extends LitElement {
         }, {} as Record<string, string>);
         if (this.openTypeBot == "WhatsApp") {
             this.enableButtons = false;
-            this.modalConfirmBotElement.open = true;
+            this.modalMessageVinculeBot.open = true;
             if (!data['phone']) return;
             const resInto = await FETCH.post('/action/Whatsapp/make', {phone: data['phone']})
             if (!resInto.success) return;
@@ -160,9 +175,9 @@ export class ChatbotsClass extends LitElement {
                 const code = res.status.code;
                 const app = res.status.app;
                 if (!code) return;
-                this.modalConfirmBotElement.code = code;
+                this.modalMessageVinculeBot.code = code;
                 if (app == 'on') {
-                    this.modalConfirmBotElement.open = false;
+                    this.modalMessageVinculeBot.open = false;
                     this.makeBotPanel = false;
                     this.enableButtons = true;
                     this.getChatbotList();
@@ -186,7 +201,13 @@ export class ChatbotsClass extends LitElement {
     }
 
     render() {
-        if (this.openConfig) return configBot(this.closePanel, this.namePanel);
+        if (this.openDevPanel) return html`<en-desarrollo id="en-desarrollo" .backClicked=${()=>{ this.openDevPanel = false }}></en-desarrollo>`
+        if (this.openConfig) return html`<config_bot-el 
+            .closePanel=${this.closePanel} 
+            .bot_process=${this.bot_process}
+            .type=${this.bot_type}
+            titleCard=${this.namePanel}
+        ></config_bot-el>`
         if (this.makeBotPanel) return html`
             <modal-confirm id="modal-confirm-bot"></modal-confirm>
             <generic-make-bot-panel 
@@ -200,7 +221,7 @@ export class ChatbotsClass extends LitElement {
             
             `
         return html`
-            <modal-make-bot id="modal-make-bot" .acceptCallback=${this.ModalAddBotAccept}></modal-make-bot>
+            <modal-make-bot id="modal-make-bot" .acceptCallback=${this.ModalSelectBotAccept}></modal-make-bot>
             <div class="chatbots-header">
                 <h2>Tus Chatbots</h2>
                 <button class="btn-add-bot" @click=${()=>{
@@ -215,7 +236,7 @@ export class ChatbotsClass extends LitElement {
 
             <div class="api-list">
                 ${this.listChatbot.map(bot =>html`
-                <div @click=${()=>this.openPanel(bot.bot_type)} class="api-item ${bot.bot_status=="active" ? 'active' :
+                <div @click=${()=>this.openPanel(bot.bot_type, bot.bot_process, bot.bot_type)} class="api-item ${bot.bot_status=="active" ? 'active' :
                     'inactive'}">
                     <div class="api-icon">${this.images.WhatsappAi}</div>
                     <div class="api-content">
