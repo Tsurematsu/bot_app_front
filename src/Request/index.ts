@@ -12,6 +12,7 @@ export class Index extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     @state() panelCode = false
     @state() email = ""
+    @state() disableSendEmail = false
     render() {
         const hash:string = window.location.hash.slice(1)
         if (hash.length > 0) return html`<into-code .panelStatus=${(e)=>this.panelCode=e} token=${hash}></into-code>`
@@ -43,7 +44,7 @@ export class Index extends LitElement {
                         </div>
             
                         <div class="button-container">
-                            <button @click=${()=>Script.request(this.email, (e)=>{this.panelCode=e})} class="submit-button">Enviar Código</button>
+                            <button @click=${()=>Script.request(this.email, (e)=>{this.panelCode=e}, (e)=>{this.disableSendEmail=e})} class="submit-button" ?disabled=${this.disableSendEmail}>Enviar Código</button>
                         </div>
                     </main>
             
