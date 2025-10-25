@@ -12,6 +12,18 @@ export class ModalMakeBot extends LitElement {
   static styles = css`${unsafeCSS(styles)}`;
   @property()
   acceptCallback: (e: string) => void = (_x) => { };
+
+  @state()
+  public WhatsappOption = true;
+
+  @state()
+  public MarketPlaceOption = true;
+
+
+  @state()
+  public InstagramOption = true;
+
+
   
   @state()
   public statusModal: boolean = false;
@@ -33,17 +45,27 @@ export class ModalMakeBot extends LitElement {
           <div>
               <span>Lista de bots</span>
               <ul>
-                <li @click=${() => this.accept('WhatsApp')}>
-                  WhatsApp
-                </li>
+                ${this.WhatsappOption?html`
+                  <li @click=${() => this.accept('WhatsApp')}>
+                    WhatsApp
+                  </li>
+                `:""}
 
-                <li @click=${() => this.accept('MarketPlace')}>
-                  MarketPlace
-                </li>
+                ${this.MarketPlaceOption?html`
+                  <li @click=${() => this.accept('MarketPlace')}>
+                    MarketPlace
+                  </li>
+                `:""}
 
-                <li @click=${() => this.accept('Instagram')}>
-                  Instagram
-                </li>
+                ${this.InstagramOption?html`
+                  <li @click=${() => this.accept('Instagram')}>
+                    Instagram
+                  </li>
+                `:""}
+
+                
+
+                
               </ul>
             </div>
             <div>

@@ -69,7 +69,8 @@ export class ChatbotsClass extends LitElement {
     // Estados para la creación de un nuevo bot
     // ---------------------------------------------------
     @query('#modal-make-bot')
-    modalMakeBotElement!: ModalMakeBot
+    modalSelectOptionsBot!: ModalMakeBot
+
     @query('#modal-confirm-bot')
     modalConfirmBotElement!: ModalConfirm
 
@@ -164,6 +165,7 @@ export class ChatbotsClass extends LitElement {
                     this.modalConfirmBotElement.open = false;
                     this.makeBotPanel = false;
                     this.enableButtons = true;
+                    this.getChatbotList();
                     if (this.requestStatusInterval) {
                         clearInterval(this.requestStatusInterval);
                         this.requestStatusInterval = null;
@@ -201,7 +203,11 @@ export class ChatbotsClass extends LitElement {
             <modal-make-bot id="modal-make-bot" .acceptCallback=${this.ModalAddBotAccept}></modal-make-bot>
             <div class="chatbots-header">
                 <h2>Tus Chatbots</h2>
-                <button class="btn-add-bot" @click=${()=>this.modalMakeBotElement.statusModal = true}>
+                <button class="btn-add-bot" @click=${()=>{
+                    const listTypes = this.listChatbot.map((e)=>e["bot_type"])
+                    if (listTypes.includes('WhatsappAi')) this.modalSelectOptionsBot.WhatsappOption = false;
+                    this.modalSelectOptionsBot.statusModal = true
+                    }}>
                     <span class="btn-icon">+</span>
                     <span class="btn-text">Añadir Bot</span>
                 </button>
@@ -214,7 +220,7 @@ export class ChatbotsClass extends LitElement {
                     <div class="api-icon">${this.images.WhatsappAi}</div>
                     <div class="api-content">
                         <p class="api-title">${bot.bot_type} Chat</p>
-                        <div class="api-status ${bot.bot_status=="active" ? 'active' : 'inactive'}">${bot.bot_status=="active" ? 'Active' : 'Inactive'}</div>
+                        <div class="api-status ${bot.bot_status=="active" ? 'active' : 'inactive'}">${bot.bot_status}</div>
                     </div>
                     <div class="api-arrow"><img src="/public/angulo.png" alt=""></div>
                 </div>
