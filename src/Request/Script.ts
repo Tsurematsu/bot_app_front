@@ -10,7 +10,7 @@ export  default class  Script{
             }
             const response = await FETCH.post('/auth/make_access_code', data)
             console.log(response);
-            if (response.succes = true) return panelStatus(true)
+            if (response.success) return panelStatus(true)
             // panelStatus(true)
         } catch (error) {
             
