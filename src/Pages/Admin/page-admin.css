@@ -1,0 +1,107 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+}
+
+.body {
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top left, #180845, #4148a5);
+}
+
+.login-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 320px;
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    color: white;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin: 0 auto 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar::before {
+    content: "";
+    background: url('iconBot') no-repeat center;
+    background-size: 60%;
+    width: 250px;
+    height: 250px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 10px 10px 0px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    color: white;
+    font-size: 14px;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-bottom: 1px solid #fff;
+}
+
+.input-group i {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    color: white;
+}
+
+.options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    margin-bottom: 20px;
+}
+
+.options input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.options a {
+    color: #bbb;
+    text-decoration: none;
+}
+
+.options a:hover {
+    text-decoration: underline;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #8e2de2, #4a00e0);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.login-btn:hover {
+    background: linear-gradient(to right, #4a00e0, #8e2de2);
+}

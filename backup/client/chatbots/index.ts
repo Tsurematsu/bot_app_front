@@ -1,10 +1,10 @@
 import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import styles from './chatbots.css?inline'
-import { ModalMakeBot } from './modalMakeBot/modalMakeBot';
-import { type configBotProps } from './genericMakeBot';
-import './modalConfirm';
-import type { ModalConfirm } from './modalConfirm';
+import { ModalMakeBot } from './modalMakeBot/modalMakeBot.ts';
+import { type configBotProps } from './genericMakeBot/index.ts';
+import './modalConfirm/index.ts';
+import type { ModalConfirm } from './modalConfirm/index.ts';
 import "./configBot/index.ts"
 import "./EnDesarrolloComponent/index.ts"
 import FETCH from '../../tools/FETCH';
