@@ -1,5 +1,5 @@
 import { css, html, LitElement } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 @customElement('content-component')
 export class ContentComponent extends LitElement {
@@ -7,7 +7,7 @@ export class ContentComponent extends LitElement {
         .body {
             display: flex;
             flex-direction: column;
-            height: 100dvh;
+            min-height: 100dvh;
             font-family: 'Inter', sans-serif;
             margin: 0;
             padding: 0;
@@ -28,10 +28,31 @@ export class ContentComponent extends LitElement {
             overflow-y: auto; /* Si hay mucho contenido, aparece scroll */
         }
 
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            background-color: #101922;
+        }
+
+        .header h1 {
+            flex: 1;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
     `
+    @property() textHeader = "Titulo"
     render() {
         return html`
             <div class="body">
+                <header class="header">
+                    <h1>${this.textHeader}</h1>
+                </header>
                 <div class="app-wrapper">
                     <!-- MAIN -->
                     <main class="main">

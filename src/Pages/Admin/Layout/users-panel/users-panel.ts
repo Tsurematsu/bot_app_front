@@ -27,17 +27,11 @@ export class UsersPanel extends LitElement {
         UsersPanelScript.loadClients(this.setInitListUsers, this.setListUsers)
         const localListUsers : getPoint[] =  this.listUsers.length == 0? this.initListUsers : this.listUsers;
         return html`
-            <content-component>
-                <header class="header">
-                    <h1>Clientes</h1>
-                </header>
-                <div class="api-list">
-                    ${localListUsers.map((e)=>html`
-                        <user-item-component .clickItem=${this.clickItem} userName=${e.user_name} .data=${e}></user-item-component>
-                    `)}
-                </div>
-            </content-component>
-            <slot></slot>
+            <div class="api-list">
+                ${localListUsers.map((e)=>html`
+                    <user-item-component .clickItem=${this.clickItem} userName=${e.user_name} .data=${e}></user-item-component>
+                `)}
+            </div>
         `;
     }
 }

@@ -56,19 +56,22 @@ export class NavbarComponent extends LitElement {
         }
 
     `
-
+    @property() setTitle = (_x)=>{}
     @property() setPanel = (_x)=>{}
     @state() selectButton=0
     showUsers(){
         this.setPanel("users")
+        this.setTitle("Usuarios")
         this.selectButton = 0
     }
     showCredencial(){
         this.setPanel("credencial")
+        this.setTitle("Generar código de acceso")
         this.selectButton = 1
     }
     showConfig(){
         this.setPanel("config")
+        this.setTitle("Configuration")
         this.selectButton=2
     }
 

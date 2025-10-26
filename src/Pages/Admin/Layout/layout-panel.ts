@@ -1,19 +1,26 @@
-import { html, LitElement, type PropertyValues } from 'lit';
+import { css, html, LitElement, type CSSResultGroup, type PropertyValues } from 'lit';
 import { customElement, state } from 'lit/decorators.js';
 import StartPanelScript from './LayoutPanel.script';
 import "./home-panel/home-panel";
 import "./users-panel/users-panel";
 import "./components/navbar-component";
 import "./credencial-panel/credencial-panel";
+import "./components/content-component";
 
 @customElement('layout-panel')
 export class LayoutPanel extends LitElement {
     private instantPanel = false
-    
+    static styles = css`
+        .container{
+            background-color: #101922;
+        }
+    `
     @state() private showPanel = false
     
     @state() private panel = "users"
     public setPanel = (e)=>{this.panel = e}
+    @state() private textHeader = "Usuarios"
+    public setTitle = (e)=>this.textHeader=e
     
     protected firstUpdated(_changedProperties: PropertyValues): void {
         
@@ -22,9 +29,15 @@ export class LayoutPanel extends LitElement {
     render() {
         StartPanelScript.onValidUser((e)=>this.showPanel=e, (e)=>this.instantPanel=e)
         if (!(this.instantPanel || this.showPanel)) return ""
-        if (this.panel == "home") return html`<home-panel .setPanel=${this.setPanel}></home-panel>`
-        if (this.panel == "users") return html`<users-panel><navbar-component .setPanel=${this.setPanel}></navbar-component></users-panel>`
-        if (this.panel == "credencial") return html`<credencial-panel><navbar-component .setPanel=${this.setPanel}></navbar-component></credencial-panel>`
-        return html`<h1>panel no seleccionado</h1>`
+        return html`
+           <div class="container">
+                <content-component .textHeader=${this.textHeader}>
+                    ${this.panel == "home"?html`<home-panel .setPanel=${this.setPanel}></home-panel>`:""}
+                    ${this.panel == "users"?html`<users-panel></users-panel>`:""}
+                    ${this.panel == "credencial"?html`<credencial-panel></credencial-panel>`:""}
+                </content-component>
+                <navbar-component .setPanel=${this.setPanel} .setTitle=${this.setTitle}></navbar-component>
+           </div>
+        `
     }
 }
