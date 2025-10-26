@@ -4,6 +4,7 @@ import StartPanelScript from './LayoutPanel.script';
 import "./home-panel/home-panel";
 import "./users-panel/users-panel";
 import "./components/navbar-component";
+import "./credencial-panel/credencial-panel";
 
 @customElement('layout-panel')
 export class LayoutPanel extends LitElement {
@@ -23,6 +24,7 @@ export class LayoutPanel extends LitElement {
         if (!(this.instantPanel || this.showPanel)) return ""
         if (this.panel == "home") return html`<home-panel .setPanel=${this.setPanel}></home-panel>`
         if (this.panel == "users") return html`<users-panel><navbar-component .setPanel=${this.setPanel}></navbar-component></users-panel>`
+        if (this.panel == "credencial") return html`<credencial-panel><navbar-component .setPanel=${this.setPanel}></navbar-component></credencial-panel>`
         return html`<h1>panel no seleccionado</h1>`
     }
 }
