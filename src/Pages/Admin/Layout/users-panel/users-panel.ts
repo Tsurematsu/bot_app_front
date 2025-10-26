@@ -4,6 +4,7 @@ import styles from "./users-panel.css?inline"
 import "../components/content-component";
 import "./components/user-item-component";
 import UsersPanelScript from './UsersPanel.script';
+import Fetch from '../../../../Helpers/herlperFetch';
 interface getPoint {
     id:number,
     user_name: string,
@@ -19,8 +20,10 @@ export class UsersPanel extends LitElement {
     public setInitListUsers = (e)=>this.initListUsers=e
     public setListUsers = (e)=>this.listUsers=e
 
-    private clickItem = (e: getPoint)=>{
+    private clickItem = async (e: getPoint)=>{
         console.log("elemento click", e);
+        await Fetch.post("/admin/deleteClient", {id:e.id})
+        UsersPanelScript.loadClients(this.setInitListUsers, this.setListUsers)
     }
 
     render() {
