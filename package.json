@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@custom-elements-manifest/analyzer": "^0.10.10",
+    "@types/node": "^24.9.1",
     "ts-lit-plugin": "^2.0.2",
     "typescript": "~5.9.3",
     "vite": "^7.1.7"

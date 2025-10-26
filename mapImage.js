@@ -22,7 +22,7 @@ function normalizeSvgFill(filePath) {
     if (!/fill="/i.test(content)) {
       content = content.replace(/<svg\b([^>]*)>/i, '<svg$1 fill="currentColor">');
     }
-    console.log(`🎨 SVG normalizado: ${path.basename(filePath)}`);
+    //console.log(`🎨 SVG normalizado: ${path.basename(filePath)}`);
     return content;
   } catch (err) {
     console.warn(`⚠️ Error procesando SVG: ${filePath}`, err.message);
@@ -79,7 +79,7 @@ ${objectEntries.join("\n")}
 `;
 
   fs.writeFileSync(path.join(dir, "index.ts"), content);
-  console.log(`📄 Generado: ${path.join(dir, "index.ts")}`);
+  //console.log(`📄 Generado: ${path.join(dir, "index.ts")}`);
 }
 
 /** Punto de entrada */

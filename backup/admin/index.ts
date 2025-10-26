@@ -43,25 +43,7 @@ export class AdminClass extends LitElement {
                     ${this.pages[this.selectPage](this.setUrl)}
                 </main>
 
-                <!-- NAV -->
-                <nav class="nav">
-                    <div class="container">
-                        <div class="nav-links">
-                            <div @click=${()=>this.setPage(0)} class="nav-link ${this.selectPage==0?"active":""}">
-                                <img width="30" src="/public/editar.png" alt="">
-                                <span class="label">Usuarios</span>
-                            </div>
-                            <div @click=${()=>this.setPage(1)} class="nav-link ${this.selectPage==1?"active":""}">
-                                <img width="30" src="/public/tarjeta-de-identificacion.png" alt="">
-                                <span class="label">Credenciales</span>
-                            </div>
-                            <div @click=${()=>this.setPage(2)} class="nav-link ${this.selectPage==2?"active":""}">
-                                <img width="30" src="/public/ajuste.png" alt="">
-                                <span class="label">Configuración</span>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
+                
             </div>
         </div>
         `;

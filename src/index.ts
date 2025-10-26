@@ -4,6 +4,7 @@ import "./Pages/Home/page-home";
 import "./Pages/Client/page-client";
 import "./Pages/Admin/page-admin";
 import "./Pages/Error/page-error";
+import "./Pages/Admin/Layout/layout-panel";
 
 export class AppRoot extends LitElement {
   firstUpdated() {
@@ -14,6 +15,7 @@ export class AppRoot extends LitElement {
       { path: '/', component: "page-home" },
       { path: '/client', component: "page-client" },
       { path: '/admin', component: "page-admin" },
+      { path: '/admin/start', component: "layout-panel" },
       { path: '(.*)', component: 'page-error' },
     ]);
   }

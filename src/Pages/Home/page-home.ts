@@ -36,7 +36,7 @@ export class HOme extends LitElement {
                                 Automatiza los filtros para tu negocio, que lleguen a ti los clientes más potenciales, agenda citas automatizadas según lo que necesites.
                             </p>
                             <div class="hero-button-container">
-                                <button @click=${() => window.location.href = '?client'} class="btn-primary">
+                                <button @click=${() => Router.go("/clients")} class="btn-primary">
                                     <span>Login Clientes</span>
                                 </button>
                             </div>

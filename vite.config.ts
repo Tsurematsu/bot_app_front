@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite'
+import { exec } from 'child_process';
 
 export default defineConfig({
   base:'/',
@@ -10,6 +11,10 @@ export default defineConfig({
     port: 5173,       // Puedes cambiar el puerto si lo deseas
   },
   plugins: [
+    {
+      name: 'run-node-script-on-reload',
+      handleHotUpdate({ file, server }) {exec('node ./mapImage.js', (err, stdout, stderr) => {});}
+    },
     {
       name: 'replace-public-paths',
       enforce: 'pre',
