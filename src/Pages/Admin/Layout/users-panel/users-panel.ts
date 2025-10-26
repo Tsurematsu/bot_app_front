@@ -4,6 +4,12 @@ import styles from "./users-panel.css?inline"
 import "../components/content-component";
 import "./components/user-item-component";
 import UsersPanelScript from './UsersPanel.script';
+interface getPoint {
+    id:number,
+    user_name: string,
+    user_email: string,
+    user_permissions: string[]
+}
 @customElement('users-panel')
 export class UsersPanel extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
@@ -13,13 +19,13 @@ export class UsersPanel extends LitElement {
     public setInitListUsers = (e)=>this.initListUsers=e
     public setListUsers = (e)=>this.listUsers=e
 
-    private clickItem = (_x)=>{
-        console.log("elemento click");
+    private clickItem = (e: getPoint)=>{
+        console.log("elemento click", e);
     }
 
     render() {
         UsersPanelScript.loadClients(this.setInitListUsers, this.setListUsers)
-        const localListUsers =  this.listUsers.length == 0? this.initListUsers : this.listUsers;
+        const localListUsers : getPoint[] =  this.listUsers.length == 0? this.initListUsers : this.listUsers;
         return html`
             <content-component>
                 <header class="header">
@@ -27,7 +33,7 @@ export class UsersPanel extends LitElement {
                 </header>
                 <div class="api-list">
                     ${localListUsers.map((e)=>html`
-                        <user-item-component .clickItem=${this.clickItem} userName=${"Carlos Mensa"}></user-item-component>
+                        <user-item-component .clickItem=${this.clickItem} userName=${e.user_name} .data=${e}></user-item-component>
                     `)}
                 </div>
             </content-component>
