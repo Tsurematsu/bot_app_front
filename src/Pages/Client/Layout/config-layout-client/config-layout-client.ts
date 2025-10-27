@@ -1,7 +1,7 @@
 import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, query, state } from 'lit/decorators.js';
 import styles from "./config-layout-client.css?inline"
-import ConfigLayoutClientScript from './ConfigLayoutClientScript';
+import ConfigLayoutClientScript, { type scrapProducts } from './ConfigLayoutClientScript';
 
 export interface UsersEmpresaProductos {
     nombre: string;
@@ -48,7 +48,20 @@ export class ConfigLayoutClient extends LitElement {
     
     @state() in_empresa_example_responses: Array<{ question: string, response: string }> = []
     @state() in_empresa_productos: Array<{ id: string, nombre: string, descripcion: string, precio: string }> = []
-    
+    private setIn_empresa_productos = (data :scrapProducts[] )=>{
+        const newElements = []
+        data.forEach(element => {
+            const newProduct = {
+                id: `prod_${Date.now()}`,
+                nombre: element.nombre,
+                descripcion: element.descripcion,
+                precio: element.precio
+            }
+            newElements.push(newProduct)
+        });
+        this.in_empresa_productos = [...this.in_empresa_productos, ...newElements]
+    }
+
     @state() modalVisible = false
     @state() modalMode: "add" | "edit" = "add"
     @state() currentProductIndex = -1
@@ -161,10 +174,10 @@ export class ConfigLayoutClient extends LitElement {
     }
 
     private deleteProduct(index: number) {
-        if (confirm("¿Estás seguro de eliminar este producto?")) {
-            this.in_empresa_productos.splice(index, 1)
-            this.in_empresa_productos = [...this.in_empresa_productos]
-        }
+        // if (confirm("¿Estás seguro de eliminar este producto?")) {
+        // }
+        this.in_empresa_productos.splice(index, 1)
+        this.in_empresa_productos = [...this.in_empresa_productos]
     }
 
     private async saveAllData() {
@@ -455,7 +468,7 @@ export class ConfigLayoutClient extends LitElement {
                             .value=${this.config.empresa_page_request_products}
                             placeholder="https://www.dominio.com/tu-seccion"
                         >
-                        <button type="button" class="add-product-btn">🔗 Cargar Productos</button>
+                        <button @click=${(e)=>ConfigLayoutClientScript.cargarProductos(this.setIn_empresa_productos, this.in_empresa_page_request, e)} type="button" class="add-product-btn">🔗 Cargar Productos</button>
                     </div>
                 </div>
 

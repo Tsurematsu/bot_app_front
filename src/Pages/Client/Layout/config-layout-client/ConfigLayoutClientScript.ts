@@ -1,6 +1,14 @@
 import { Router } from "@vaadin/router";
 import Fetch from "../../../../Helpers/herlperFetch";
 import type { dataResponse } from "./config-layout-client";
+
+export interface scrapProducts {
+    nombre: string,
+    precio: string,
+    descripcion: string,
+    enlace: string
+}
+
 export default class ConfigLayoutClientScript{
     public static async logout(){
         const res = await Fetch.get("/client/logout")
@@ -24,5 +32,19 @@ export default class ConfigLayoutClientScript{
             empresa_pdf_data: data.empresa_pdf_data
         })
 
+    }
+
+    public static async cargarProductos(setIn_empresa_productos, input:HTMLInputElement, e:Event){
+        const url = input.value
+        const button = e.target as HTMLButtonElement
+        console.log("obteniendo lista");
+        button.disabled = true
+        const res = await Fetch.post("/client/url", {url})
+        if (!res.success) return
+        const elementos :scrapProducts[] = res.result
+        console.log(elementos);
+        setIn_empresa_productos(elementos)
+        await new Promise(r=>setTimeout(r, 1000))
+        button.disabled = false
     }
 }
