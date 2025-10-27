@@ -33,5 +33,5 @@
       }
     ]
   },
-  "include": ["src", "backup/Access", "backup/admin", "backup/app", "backup/client", "backup/components", "backup/home", "backup/htmlCodes", "backup/login", "backup/Request", "backup/tools"]
+  "include": ["src", "backup/Access", "backup/admin", "backup/app", "backup/client", "backup/components", "backup/home", "src/Pages/Error/htmlCodes", "backup/login", "backup/Request", "backup/tools"]
 }

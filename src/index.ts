@@ -3,9 +3,9 @@ import { Router } from '@vaadin/router';
 import "./Pages/Home/page-home";
 import "./Pages/Client/page-client";
 import "./Pages/Admin/page-admin";
-import "./Pages/Error/page-error";
 import "./Pages/Admin/Layout/layout-panel";
 import "./Pages/Client/Layout/layout-panel-client";
+import "./Pages/Error/page404/page404";
 
 export class AppRoot extends LitElement {
   firstUpdated() {
@@ -18,7 +18,7 @@ export class AppRoot extends LitElement {
       { path: '/client/start', component: "layout-panel-client" },
       { path: '/admin', component: "page-admin" },
       { path: '/admin/start', component: "layout-panel" },
-      { path: '(.*)', component: 'page-error' },
+      { path: '(.*)', component: 'page404-el' },
     ]);
   }
 

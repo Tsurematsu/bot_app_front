@@ -5,6 +5,7 @@ import styles from './page404.css?inline';
 import questionMarkCircle from 'heroicons/24/outline/question-mark-circle.svg?raw';
 
 import { unsafeSVG } from 'lit/directives/unsafe-svg.js';
+import { Router } from '@vaadin/router';
 export default function page404() {
     return html`
         <page404-el></page404-el>
@@ -38,7 +39,7 @@ export class Page404Class extends LitElement {
                     
                     <!-- SingleButton -->
                     <div class="button-wrapper">
-                        <button @click=${() => window.location.href = '/'} class="primary-button">
+                        <button @click=${() => Router.go('/')} class="primary-button">
                             <span class="button-text">Ir a la Página Principal</span>
                         </button>
                     </div>
