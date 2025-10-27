@@ -22,12 +22,16 @@ export class LayoutPanel extends LitElement {
     @state() private textHeader = "Usuarios"
     public setTitle = (e)=>this.textHeader=e
     
-    protected firstUpdated(_changedProperties: PropertyValues): void {
-        
+    private initialized = false;
+    connectedCallback() {
+        super.connectedCallback();
+        if (!this.initialized) {
+            this.initialized = true;
+            StartPanelScript.onValidUser((e)=>this.showPanel=e, (e)=>this.instantPanel=e)
+        }
     }
 
     render() {
-        StartPanelScript.onValidUser((e)=>this.showPanel=e, (e)=>this.instantPanel=e)
         if (!(this.instantPanel || this.showPanel)) return ""
         return html`
            <div class="container">

@@ -1,0 +1,171 @@
+/* Base */
+#body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background-color: #101922;
+  color: white;
+}
+
+h1, h2 {
+  margin: 0;
+}
+
+h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Layout */
+.design-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #101922;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(8px);
+}
+
+.header-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+/* Botón Añadir Bot */
+.btn-add-bot {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1rem;
+  background-color: #1173d4;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(17, 115, 212, 0.3);
+}
+
+.btn-add-bot:hover {
+  background-color: #0d5fb3;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(17, 115, 212, 0.4);
+}
+
+.btn-add-bot:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(17, 115, 212, 0.3);
+}
+
+.btn-icon {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.btn-text {
+  font-weight: 600;
+}
+
+/* Responsive - Ocultar texto en móviles pequeños */
+@media (max-width: 380px) {
+  .btn-text {
+    display: none;
+  }
+  
+  .btn-add-bot {
+    padding: 0.625rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    justify-content: center;
+  }
+  
+  .header-title {
+    font-size: 1.125rem;
+  }
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+.main {
+  padding: 1rem;
+  flex-grow: 1;
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(16, 25, 34, 0.8);
+  backdrop-filter: blur(4px);
+  padding: 0.75rem 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+}
+
+.footer-menu {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.footer-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: #94a3b8;
+  font-size: 0.75rem;
+  text-decoration: none;
+  border-radius: 10px;
+  padding: 10px;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.footer-item:active {
+  background-color: #1173d4;
+}
+
+.footer-item div {
+  display: flex;
+  flex-direction: column;
+  max-width: 30px;
+  max-height: 30px;
+  margin-bottom: -12px;
+}
+
+.ajustesIcon {
+  margin: 4px;
+}
+
+.footer-item.active {
+  color: #1173d4;
+}
+
+.footer-item.active div img {
+  filter: brightness(0) saturate(100%) invert(42%) sepia(93%) saturate(1352%) hue-rotate(187deg) brightness(95%) contrast(101%);
+}

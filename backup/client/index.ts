@@ -75,7 +75,6 @@ export class ClientClass extends LitElement {
                         </div>
                     </footer>
                 </div>
-            
             </div>
         `;
     }
