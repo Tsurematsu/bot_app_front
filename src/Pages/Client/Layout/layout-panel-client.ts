@@ -3,6 +3,7 @@ import { customElement, state } from 'lit/decorators.js';
 import "./components/content-component-client";
 import LayoutPanelClientScript from './LayoutPanelClientScript';
 import "./config-layout-client/config-layout-client";
+import "./bot-layout-client/bot-layout-client";
 
 @customElement('layout-panel-client')
 export class LayoutPanelClient extends LitElement {
@@ -14,7 +15,7 @@ export class LayoutPanelClient extends LitElement {
     `
     @state() private showPanel = false
     
-    @state() private panel = "config"
+    @state() private panel = "bots"
     public setPanel = (e)=>{this.panel = e}
     
     private initialized = false;
@@ -31,7 +32,7 @@ export class LayoutPanelClient extends LitElement {
         return html`
            <div class="container">
                 <content-component-client .setPanel=${this.setPanel}>
-                    ${this.panel == "bots"?html`<span>chatbots panel</span>`:""}
+                    ${this.panel == "bots"?html`<bot-layout-client></bot-layout-client>`:""}
                     ${this.panel == "calendar"?html`<span>calendario</span>`:""}
                     ${this.panel == "notify"?html`<span>notificaciones</span>`:""}
                     ${this.panel == "facture"?html`<span>facturación</span>`:""}

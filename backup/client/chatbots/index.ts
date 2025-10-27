@@ -25,24 +25,6 @@ export class ChatbotsClass extends LitElement {
     @state()
     private listChatbot = [];
     getChatbotList = async () => {
-        // Esto es lo que retorna el fetch
-        // {
-        //     "id": 3,
-        //     "user_id": "2",
-        //     "user_name": "Jose Daniel Solano",
-        //     "user_phone": "573507809645",
-        //     "user_email": "daniel120802@gmail.com",
-        //     "user_password": "",
-        //     "bot_process": "2-RWKSN",
-        //     "bot_type": "WhatsappAi",
-        //     "bot_status": "creating",
-        //     "bot_phone": "573507809645",
-        //     "bot_prompt": "",
-        //     "bot_email": "",
-        //     "bot_password": "",
-        //     "created_at": "2025-10-25T00:44:09.622Z",
-        //     "updated_at": "2025-10-25T00:44:09.622Z"
-        // }
         const res = await FETCH.get('/bots/list');
         if (!res.success) return console.log("Error fetching chatbot list");
         
