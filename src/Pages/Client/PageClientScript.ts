@@ -1,3 +1,4 @@
+import { Router } from "@vaadin/router";
 import Fetch from "../../Helpers/herlperFetch";
 
 export default class PageClientScript{
@@ -11,7 +12,7 @@ export default class PageClientScript{
             }
             const response = await Fetch.post('/auth/email', data)
             console.log(response);
-            // if (response.success) return panelCode(true)
+            if (response.success) return panelCode(true)
             setTimeout(() => {disableEmail(false)}, 1000);
         } catch (error) {
             
@@ -22,8 +23,12 @@ export default class PageClientScript{
         const token = window.location.search.slice(1)
         if (token) {
             const res = await Fetch.post("/auth/token", {token})
-            console.log(res);
-            
+            if (res.success) return Router.go("/client/start")
+            return Router.go("/client")
+        }else{
+            const res = await Fetch.get("/client")
+            if (res.success) return Router.go("/client/start")
+            return Router.go("/client")
         }
     }
 }

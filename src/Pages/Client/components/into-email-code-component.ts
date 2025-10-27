@@ -1,10 +1,11 @@
+import { css, html, LitElement, unsafeCSS, type PropertyValues } from 'lit';
 import { customElement, property, query, queryAll } from 'lit/decorators.js';
-import { LitElement, html, unsafeCSS, css, type PropertyValues } from 'lit';
-import styles from "./styles.css?inline"
-import FETCH from '../../tools/FETCH';
-@customElement('into-code')
-export class Index extends LitElement {
-    @property() token = ""
+import Fetch from '../../../Helpers/herlperFetch';
+import styles from "./into-email-code-component.css?inline"
+import { Router } from '@vaadin/router';
+import images from '../../../images';
+@customElement('into-email-code-component')
+export class IntoEmailCodeComponent extends LitElement {
     @property() email = ""
     @property() panelStatus
     @queryAll(".code-input") code: NodeListOf<HTMLInputElement>
@@ -13,12 +14,6 @@ export class Index extends LitElement {
 
     protected firstUpdated(_changedProperties: PropertyValues): void {
         this.initInput.focus()
-        if (this.token) {
-            FETCH.post("/auth/into_access_token", { token: this.token }).then((e) => {
-                console.log("Acceso por token:", e);
-                if (e.success && e.success == true) return location.href = "?client"
-            })
-        }
         this.setupInputHandlers();
     }
 
@@ -78,18 +73,14 @@ export class Index extends LitElement {
         });
     }
 
-    AccesCode() {
+    async AccessCode() {
         const code = Object.values(this.code).map((e: HTMLInputElement, index) => (`${e.value}${((index+1)%3==0)?"-":""}`)).join(("")).slice(0, -1)
         if (!this.email) this.panelStatus(false)
         if (this.code.length == 0) return
         if (this.email.length == 0) this.panelStatus(false)
         const bodyData = { code:code.toUpperCase(), email: this.email }
-        console.log(bodyData);
-        
-        FETCH.post("/auth/into_access_code", bodyData).then((e) => {
-            if (e.success && e.success == true) return location.href = "?client"
-            console.log(e);
-        })
+        const res = await Fetch.post("/auth/code", bodyData)
+        return Router.go("/client/start")
     }
 
     render() {
@@ -97,7 +88,8 @@ export class Index extends LitElement {
             <link href="data:image/x-icon;base64," rel="icon" type="image/x-icon" />
             <link href="https://fonts.googleapis.com" rel="preconnect" />
             <link href="https://fonts.gstatic.com" rel="preconnect" />
-            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+            <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap"
+                rel="stylesheet" />
             <link href="styles.css" rel="stylesheet" />
             <div class="body">
                 <div class="container">
@@ -113,13 +105,14 @@ export class Index extends LitElement {
                             </button>
                             <h2 class="header-title">Iniciar sesión</h2>
                         </header>
-            
+
                         <main class="main">
                             <div class="text-center">
                                 <h1 class="title">Introduce el código de acceso</h1>
-                                <p class="subtitle">Hemos enviado un código de acceso a tu dirección de correo electrónico.</p>
+                                <p class="subtitle">Hemos enviado un código de acceso a tu dirección de correo
+                                    electrónico.</p>
                             </div>
-            
+
                             <div class="input-wrapper">
                                 <fieldset class="input-group">
                                     <div class="input-section">
@@ -141,13 +134,13 @@ export class Index extends LitElement {
                                     </div>
                                 </fieldset>
                             </div>
-            
+
                             <div class="button-wrapper">
-                                <button @click=${this.AccesCode} class="confirm-button">Confirmar</button>
+                                <button @click=${this.AccessCode} class="confirm-button">Confirmar</button>
                             </div>
                         </main>
                     </div>
-            
+
                     <footer class="footer">
                         <div class="footer-content">
                             <span class="footer-text">¿No has recibido el código?</span>

@@ -217,3 +217,20 @@ body {
 .footer-link:hover {
     text-decoration: underline;
 }
+
+#backImage{
+    background-color: transparent;
+    border: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    svg{
+        width: 40px;
+        height: auto;
+    }
+    &:active{
+        border: solid 2px black;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+}
