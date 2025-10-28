@@ -8,20 +8,24 @@ export default class StartPanelScript{
         if (cache && cache=="admin") {
             statusInstant(true)
             const res = await Fetch.get("/admin")
-            if (res.success) return 
-            deleteStorage('access')
-            setStatus(false)
-            return Router.go("/admin")
+            console.log(res);
+            
+            // if (res.success) return 
+            // deleteStorage('access')
+            // setStatus(false)
+            // return Router.go("/admin")
         }
         if(!cache){
             statusInstant(false)
             const res = await Fetch.get("/admin")
-            if (res.success) {
-                setStorage("access", "admin")
-                setStatus(true)
-                return   
-            }  
-            return Router.go("/admin")
+            console.log(res);
+            
+            // if (res.success) {
+            //     setStorage("access", "admin")
+            //     setStatus(true)
+            //     return   
+            // }  
+            // return Router.go("/admin")
         }
         return Router.go("/")
     }
