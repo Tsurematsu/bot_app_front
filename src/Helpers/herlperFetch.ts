@@ -13,7 +13,7 @@ export default class Fetch {
 
     /** GET request */
     public static async get(endpoint: string) {
-        // this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";   
+        this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";   
         try {
             const res = await fetch(`${this.url}${endpoint}`, {
                 ...this.defaultOptions(),
@@ -30,7 +30,7 @@ export default class Fetch {
 
     /** POST request */
     public static async post(endpoint: string, data: any = {}) {
-        //  this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";
+         this.url = window.location.origin.includes("localhost") ? "http://localhost:3000" : "https://back.chatbotapp.shop";
         try {
             const res = await fetch(`${this.url}${endpoint}`, {
                 ...this.defaultOptions(),
