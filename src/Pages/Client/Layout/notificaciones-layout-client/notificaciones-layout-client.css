@@ -1,0 +1,294 @@
+/* ===== Variables ===== */
+:host {
+  --primary: #3498DB;
+  --background: #121212;
+  --component: #1E1E1E;
+  --text-primary: #EAEAEA;
+  --text-secondary: #A0A0A0;
+  
+  --border-radius: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-xl: 1rem;
+  --border-radius-full: 9999px;
+}
+
+/* ===== Reset y Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: max(884px, 100dvh);
+  background-color: var(--background);
+  color: var(--text-primary);
+}
+
+/* ===== Container ===== */
+.container {
+  position: relative;
+  margin: 0 auto;
+  display: flex;
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
+  max-width: 28rem;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* ===== App Bar ===== */
+.app-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  backdrop-filter: blur(4px);
+  padding: 1rem;
+  padding-bottom: 0.75rem;
+}
+
+.app-bar-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.mark-read-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* ===== Content ===== */
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  padding-top: 0.5rem;
+}
+
+/* ===== Group Header ===== */
+.group-header {
+  padding: 0.75rem 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+/* ===== Notification Item ===== */
+.notification-item {
+  margin-bottom: 0.75rem;
+  border-radius: var(--border-radius-xl);
+  background-color: var(--component);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* List Item */
+.notification-item.list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+/* Accordion */
+.notification-item.accordion {
+  overflow: hidden;
+}
+
+.notification-summary {
+  display: flex;
+  cursor: pointer;
+  list-style: none;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.notification-summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ===== Notification Icon ===== */
+.notification-icon-wrapper {
+  position: relative;
+  margin-top: 0.25rem;
+}
+
+.notification-icon {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+}
+
+.icon-chat {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #60a5fa;
+}
+
+.icon-success {
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+}
+
+.icon-shipping {
+  background-color: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+}
+
+.notification-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  aspect-ratio: 1 / 1;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: var(--border-radius-full);
+}
+
+.notification-badge {
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: var(--border-radius-full);
+  border: 2px solid var(--component);
+  background-color: var(--primary);
+}
+
+/* ===== Notification Content ===== */
+.notification-content {
+  flex: 1;
+}
+
+.notification-title {
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.notification-description {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.notification-item.list-item .notification-description {
+  -webkit-line-clamp: unset;
+}
+
+/* ===== Notification Time ===== */
+.notification-time {
+  text-align: right;
+}
+
+.notification-time p {
+  flex-shrink: 0;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* ===== Notification Details (Accordion Content) ===== */
+.notification-details {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0 1rem 1rem 1rem;
+}
+
+.notification-details p {
+  padding-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* ===== Notification Actions ===== */
+.notification-actions {
+  margin-top: 1rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-primary,
+.btn-secondary {
+  flex: 1;
+  border-radius: var(--border-radius-lg);
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Empty State ===== */
+.empty-state {
+  margin: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.empty-state-icon {
+  display: flex;
+  width: 5rem;
+  height: 5rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  background-color: var(--component);
+  color: var(--text-secondary);
+}
+
+.empty-state-icon .material-symbols-outlined {
+  font-size: 2.25rem;
+}
+
+.empty-state-title {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.empty-state-description {
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}

@@ -83,7 +83,7 @@ export class CalendarioLayoutClient extends LitElement {
         <header class="app-header">
           <div class="header-content">
             <button class="icon-button" aria-label="Menú">
-              ${unsafeHTML(images.svg.menu)}
+              ${unsafeHTML(images.svg.settings)}
             </button>
             <h2 class="header-title">${this.getMonthYearString(this.currentMonth)}</h2>
             <button class="today-button" @click=${this.goToToday}>Hoy</button>

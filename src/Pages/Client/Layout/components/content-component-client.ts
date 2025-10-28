@@ -49,7 +49,7 @@ export class ContentComponentClient extends LitElement {
                             </div>
                             <div @click=${this.selectCalendar} class="footer-item ${this.page == 1 ? 'active' : ''}">
                                 <div><img src="${images.calendario}" alt=""></div>
-                                <p>Calendario</p>
+                                <p>Agenda</p>
                             </div>
                             <div @click=${this.selectNotify} class="footer-item ${this.page == 2 ? 'active' : ''}">
                                 <div><img src="${images.notificacion}" alt=""></div>
@@ -57,7 +57,7 @@ export class ContentComponentClient extends LitElement {
                             </div>
                             <div @click=${this.selectFacture} class="footer-item ${this.page == 3 ? 'active' : ''}">
                                 <div><img src="${images.factura}" alt=""></div>
-                                <p>Facturación</p>
+                                <p>Plan</p>
                             </div>
                             <div @click=${this.selectSettings} class="footer-item ${this.page == 4 ? 'active' : ''}">
                                 <div><img class="ajustesIcon" src="${images.ajuste}" alt=""></div>
