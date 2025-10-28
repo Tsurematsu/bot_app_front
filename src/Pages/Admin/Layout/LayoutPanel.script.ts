@@ -4,10 +4,6 @@ import Fetch from "../../../Helpers/herlperFetch";
 
 export default class StartPanelScript{
     public static async onValidUser(setStatus, statusInstant){
-        const res = await Fetch.get("/admin")
-        console.log(res);
-        
-        return
         const cache = getStorage('access')
         if (cache && cache=="admin") {
             statusInstant(true)
