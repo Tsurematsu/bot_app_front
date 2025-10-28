@@ -28,7 +28,7 @@ export class LayoutPanelCreateBotClient extends LitElement {
     @property() success = ()=>{}
 
     @query('modal-auth-device') modalAuthDevice : ModalAuthDevice
-    async onAccept(){script.createBot(this.modalAuthDevice, this.typeBot, this.success)}
+    async onAccept(){script.createBot(this.modalAuthDevice, this.typeBot, this.success, this.inputs)}
     onCancel(){this.success()}
     @state()
     private showPassword = false;
@@ -56,7 +56,7 @@ export class LayoutPanelCreateBotClient extends LitElement {
                             <label class="field-label" for="email">
                                 Correo electrónico
                             </label>
-                            <input id="email" class="input-field" type="email" placeholder="Tu correo electrónico"
+                            <input name="email" id="email" class="input-field" type="email" placeholder="Tu correo electrónico"
                                 autocomplete="email" />
                         </div>
                         `:""}
@@ -68,7 +68,7 @@ export class LayoutPanelCreateBotClient extends LitElement {
                             <label class="field-label" for="username">
                                 Usuario
                             </label>
-                            <input id="username" class="input-field" type="text" placeholder="Tu nombre de usuario"
+                            <input name="username" id="username" class="input-field" type="text" placeholder="Tu nombre de usuario"
                                 autocomplete="username" />
                         </div>
                         `:""}
@@ -80,7 +80,7 @@ export class LayoutPanelCreateBotClient extends LitElement {
                                 Contraseña
                             </label>
                             <div class="password-wrapper">
-                                <input id="password" class="input-field" type="${this.showPassword ? 'text' : 'password'}"
+                                <input name="password" id="password" class="input-field" type="${this.showPassword ? 'text' : 'password'}"
                                     placeholder="Tu contraseña" autocomplete="current-password" />
                                 <button class="password-toggle" type="button" @click=${this.togglePasswordVisibility}
                                     aria-label="${this.showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}">
@@ -98,7 +98,7 @@ export class LayoutPanelCreateBotClient extends LitElement {
                             <label class="field-label" for="phone">
                                 Número de teléfono
                             </label>
-                            <input id="phone" class="input-field" type="tel" placeholder="Tu número de teléfono"
+                            <input name="phone" id="phone" class="input-field" type="tel" placeholder="Tu número de teléfono"
                                 autocomplete="tel" />
                         </div>
                         `:""}
