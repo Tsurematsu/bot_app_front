@@ -4,7 +4,7 @@ import styles from "./calendario-layout-client.css?inline"
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import images from '../../../../images';
 
-interface Event {
+interface Evento {
   date: string; // ISO string for time (hora)
   name: string;
   description?: string;
@@ -12,7 +12,7 @@ interface Event {
 
 interface DayData {
   date: string; // ISO string for date (solo día, mes, año)
-  events: Event[];
+  events: Evento[];
 }
 
 type ViewMode = 'Month' | 'Week' | 'Day';
@@ -30,8 +30,6 @@ export class CalendarioLayoutClient extends LitElement {
   @state()
   private currentMonth: Date = new Date();
 
-  @state()
-  private viewMode: ViewMode = 'Month';
 
   constructor() {
     super();
@@ -91,45 +89,6 @@ export class CalendarioLayoutClient extends LitElement {
             <button class="today-button" @click=${this.goToToday}>Hoy</button>
           </div>
         </header>
-
-        <!-- Main Content -->
-        <main class="main-content">
-          <!-- View Switcher -->
-          <div class="view-switcher">
-            <div class="segment-container">
-              <label class="segment-label">
-                <span>Mes</span>
-                <input 
-                  type="radio" 
-                  name="view-switcher" 
-                  value="Month" 
-                  .checked=${this.viewMode === 'Month'}
-                  @change=${this.handleViewChange}
-                />
-              </label>
-              <label class="segment-label">
-                <span>Semana</span>
-                <input 
-                  type="radio" 
-                  name="view-switcher" 
-                  value="Week"
-                  .checked=${this.viewMode === 'Week'}
-                  @change=${this.handleViewChange}
-                />
-              </label>
-              <label class="segment-label">
-                <span>Día</span>
-                <input 
-                  type="radio" 
-                  name="view-switcher" 
-                  value="Day"
-                  .checked=${this.viewMode === 'Day'}
-                  @change=${this.handleViewChange}
-                />
-              </label>
-            </div>
-          </div>
-
           <!-- Calendar Picker -->
           <div class="calendar-picker">
             <div class="calendar-content">
@@ -169,11 +128,6 @@ export class CalendarioLayoutClient extends LitElement {
             ${this.renderEvents()}
           </div>
         </main>
-
-        <!-- FAB -->
-        <button class="fab" aria-label="Agregar evento" @click=${this.addEvent}>
-          ${unsafeHTML(images.svg.add)}
-        </button>
       </div>
     `;
   }
@@ -197,12 +151,6 @@ export class CalendarioLayoutClient extends LitElement {
     this.selectedDate = this.getDateString(today);
   }
 
-  // Cambio de vista
-  private handleViewChange(e: Event) {
-    // const target = e.target as HTMLInputElement;
-    // this.viewMode = target.value as ViewMode;
-  }
-
   // Selección de día
   private selectDay(date: Date) {
     this.selectedDate = this.getDateString(date);
@@ -218,7 +166,7 @@ export class CalendarioLayoutClient extends LitElement {
   }
 
   // Obtener eventos de un día específico
-  private getEventsForDate(dateStr: string): Event[] {
+  private getEventsForDate(dateStr: string): Evento[] {
     //console.log('Buscando eventos para:', dateStr);
     //console.log('Datos del calendario:', this.calendarData);
     
@@ -384,7 +332,7 @@ export class CalendarioLayoutClient extends LitElement {
     const eventTime = new Date(selectedDate);
     eventTime.setHours(new Date().getHours() + 1, 0, 0, 0);
 
-    const newEvent: Event = {
+    const newEvent: Evento = {
       date: eventTime.toISOString(),
       name: 'Nuevo evento',
       description: 'Descripción del evento'
@@ -394,7 +342,7 @@ export class CalendarioLayoutClient extends LitElement {
   }
 
   // Método helper para agregar eventos
-  private addEventToCalendar(dateStr: string, event: Event) {
+  private addEventToCalendar(dateStr: string, event: Evento) {
     const existingDay = this.calendarData.find(d => d.date === dateStr);
 
     if (existingDay) {
