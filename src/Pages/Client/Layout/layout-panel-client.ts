@@ -16,7 +16,7 @@ export class LayoutPanelClient extends LitElement {
     `
     @state() private showPanel = false
     
-    @state() private panel = "bots"
+    @state() private panel = "calendar"
     public setPanel = (e)=>{this.panel = e}
     
     private initialized = false;
