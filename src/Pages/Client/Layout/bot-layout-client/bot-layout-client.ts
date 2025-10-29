@@ -7,6 +7,8 @@ import type { ModalSeleccionBot } from './components/modal-selection-bot';
 import "./layout-panel-create-bot-client/layout-panel-create-bot-client";
 import type { LayoutPanelCreateBotClient } from './layout-panel-create-bot-client/layout-panel-create-bot-client';
 import script, { type pointBot } from './script';
+import "./configBot/index";
+import type { config_botClass } from './configBot/index';
 @customElement('bot-layout-client')
 export class BotLayoutClient extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
@@ -25,6 +27,12 @@ export class BotLayoutClient extends LitElement {
         this.modalSelectionBot.open = false
         this.layoutPanelCreateBotClient.typeBot = option
         this.layoutPanelCreateBotClient.open = true
+    }
+
+    @query('config_bot-el') configBotEl : config_botClass
+    onClosePanelConfigBot = ()=>{
+        this.configBotEl.open = false
+        this.parentOpen = true
     }
 
     @state()
@@ -60,13 +68,16 @@ export class BotLayoutClient extends LitElement {
     }
 
     private selectItem(data : pointBot){
-        console.log(data);
-        
+        // console.log(data);
+        this.configBotEl.bot_process = data.bot_process 
+        this.parentOpen = false
+        this.configBotEl.open = true
     }
 
     render() {
         const listBots: pointBot[] = this.dinamoList.length == 0 ? this.staticList : this.dinamoList
         return html`
+            <config_bot-el .closePanel=${this.onClosePanelConfigBot}></config_bot-el>
             <modal-selection-bot .accept=${this.onSelectedModalSelectionBot}></modal-selection-bot>
             <layout-panel-create-bot-client .success=${this.CreateBotSuccess}></layout-panel-create-bot-client>
             ${this.parentOpen ? html`

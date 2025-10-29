@@ -11,17 +11,22 @@ import enlaces from "./enlaces.png";
 import factura from "./factura.png";
 import flechaBack from "./flecha-back.png";
 import flechaNext from "./flecha-next.png";
+import hourglass from "./hourglass.gif";
 import iconBot from "./iconBot.png";
 import icons from "./icons";
 import llave from "./llave.png";
 import marketplace from "./marketplace.png";
 import notificacion from "./notificacion.png";
+import party from "./party.gif";
 import pro from "./pro.png";
 import procesoCerebral from "./proceso-cerebral.gif";
+import repairTools from "./repair-tools.gif";
 import restaurar from "./restaurar.png";
 import rocket from "./rocket.gif";
+import settingsGif from "./settingsGif.gif";
 import svg from "./svg";
 import tarjetaDeIdentificacion from "./tarjeta-de-identificacion.png";
+import warning from "./warning.gif";
 import whastapp from "./whastapp.png";
 
 export default {
@@ -38,16 +43,21 @@ export default {
   factura,
   flechaBack,
   flechaNext,
+  hourglass,
   iconBot,
   icons,
   llave,
   marketplace,
   notificacion,
+  party,
   pro,
   procesoCerebral,
+  repairTools,
   restaurar,
   rocket,
+  settingsGif,
   svg,
   tarjetaDeIdentificacion,
+  warning,
   whastapp,
 };
