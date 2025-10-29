@@ -346,7 +346,7 @@ export class ConfigLayoutClient extends LitElement {
                     <h3>Instrucciones IA</h3>
                     <div class="field">
                         <label for="context-prompt">
-                            Aquí le especificas a tu asistente cómo debe actuar frente al cliente
+                            Aquí le especificas a tu asistente que requisitos debe cumplir el cliente...
                         </label>
                         <textarea 
                             name="empresa_prompt" 
@@ -356,9 +356,9 @@ export class ConfigLayoutClient extends LitElement {
                             placeholder="Ej: Sé amable y profesional. Responde siempre en español. Enfócate en resolver dudas sobre nuestros productos..."
                         ></textarea>
                     </div>
-                    <div class="field">
+                    <!-- <div class="field">
                         <button type="button" class="add-product-btn">🤖 Generar prompt con IA</button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Ejemplos de respuestas -->
