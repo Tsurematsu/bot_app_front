@@ -2,34 +2,45 @@ import { css, html, LitElement, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 import styles from "./content-component-client.css?inline"
 import images from '../../../../images';
+import { getStorage, setStorage } from '../../../../Helpers/helperStorage';
 @customElement('content-component-client')
 export class ContentComponentClient extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
     @property() setPanel = (_x)=>{}
     
-    @state() page = 0;
+    @state() page = getStorage("selectNav")  || 0;
 
     private selectBot = ()=>{
         this.page = 0
+        setStorage("selectNav", this.page)
+        setStorage('navigate', "bots")
         this.setPanel("bots")
     }
     private selectCalendar = ()=>{
         this.page = 1
+        setStorage("selectNav", this.page)
+        setStorage('navigate', "calendar")
         this.setPanel("calendar")
         
     }
     private selectNotify = ()=>{
         this.page = 2
+        setStorage("selectNav", this.page)
+        setStorage('navigate', "notify")
         this.setPanel("notify")
 
     }
     private selectFacture = ()=>{
         this.page = 3
+        setStorage("selectNav", this.page)
+        setStorage('navigate', "facture")
         this.setPanel("facture")
 
     }
     private selectSettings = ()=>{
         this.page = 4
+        setStorage("selectNav", this.page)
+        setStorage('navigate', "config")
         this.setPanel("config")
 
     }

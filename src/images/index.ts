@@ -19,6 +19,7 @@ import notificacion from "./notificacion.png";
 import pro from "./pro.png";
 import procesoCerebral from "./proceso-cerebral.gif";
 import restaurar from "./restaurar.png";
+import rocket from "./rocket.gif";
 import svg from "./svg";
 import tarjetaDeIdentificacion from "./tarjeta-de-identificacion.png";
 import whastapp from "./whastapp.png";
@@ -45,6 +46,7 @@ export default {
   pro,
   procesoCerebral,
   restaurar,
+  rocket,
   svg,
   tarjetaDeIdentificacion,
   whastapp,

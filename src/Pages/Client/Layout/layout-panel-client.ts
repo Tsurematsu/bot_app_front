@@ -7,6 +7,7 @@ import "./bot-layout-client/bot-layout-client";
 import "./calendario-layout-client/calendario-layout-client";
 import "./notificaciones-layout-client/notificaciones-layout-client";
 import "./plan-layout-client/plan-layout-client";
+import { getStorage } from '../../../Helpers/helperStorage';
 
 @customElement('layout-panel-client')
 export class LayoutPanelClient extends LitElement {
@@ -18,7 +19,7 @@ export class LayoutPanelClient extends LitElement {
     `
     @state() private showPanel = false
     
-    @state() private panel = "calendar"
+    @state() private panel = getStorage("navigate") || "bots"
     public setPanel = (e)=>{this.panel = e}
     
     private initialized = false;

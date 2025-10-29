@@ -3,6 +3,7 @@ import { customElement } from 'lit/decorators.js';
 import styles from "./notificaciones-layout-client.css?inline"
 import { unsafeHTML } from 'lit/directives/unsafe-html.js';
 import images from '../../../../images';
+
 @customElement('notificaciones-layout-client')
 export class NotificacionesLayoutClient extends LitElement {
     static styles = css`${unsafeCSS(styles)}`
@@ -21,7 +22,7 @@ export class NotificacionesLayoutClient extends LitElement {
                         <!-- <h4 class="group-header">Today</h4> -->
 
                         <!-- Accordion Notification Item -->
-                        <details class="notification-item accordion" open>
+                        <details class="notification-item accordion">
                             <summary class="notification-summary">
                                 <div class="notification-icon-wrapper">
                                     <div class="notification-icon icon-chat">

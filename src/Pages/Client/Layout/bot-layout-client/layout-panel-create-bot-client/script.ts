@@ -27,15 +27,26 @@ export default class script{
             if (resCreate.success) {
                 bot_process = resCreate.bot_process
                 modalAuthDevice.open = true;
+                let initStarted = false
                 codeInterval = setInterval(async () => {
                     const resStatus : point_bot_WhatsApp_status = await Fetch.post('/bot/WhatsApp/status', {bot_process});
                     if (!resStatus.success) await cancelAction() 
+                    if (!initStarted) {
+                        modalAuthDevice.config = {
+                            code: resStatus.result.code,
+                            imageBase64: "",
+                            starting: false
+                        }
+                        if (resStatus.result.app=="on") initStarted = true;
+                        return
+                    }
                     modalAuthDevice.config = {
-                        code: resStatus.result.code,
-                        imageBase64: ""
+                        code: "",
+                        imageBase64: "",
+                        starting: true
                     }
                     if (!modalAuthDevice.open) await cancelAction() 
-                    if (resStatus.result.app=="on") await actionSuccess()
+                    if (resStatus.result.listen == "running") await actionSuccess()
                 }, 500);    
             }
         }

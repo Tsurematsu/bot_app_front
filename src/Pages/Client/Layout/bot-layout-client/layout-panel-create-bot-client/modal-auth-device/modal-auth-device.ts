@@ -10,7 +10,8 @@ export class ModalAuthDevice extends LitElement {
     @state() public open = false
     @state() public config = {
         code : "",
-        imageBase64 : ""
+        imageBase64 : "",
+        starting : false
     }
     render() {
         if (!this.open) return ""
@@ -34,7 +35,13 @@ export class ModalAuthDevice extends LitElement {
                             <img src="${this.config.imageBase64}" alt="Captcha" class="captcha" />
                         </div>
                         `:""}
-                        ${this.config.imageBase64.length == 0 && this.config.code.length == 0 ? html`
+                        ${this.config.starting?html`
+                            <div class="section onLoading">
+                                <h3>Ya casi estamos listos! preparando sistema de respuestas...</h3>
+                                <img src="${images.rocket}" width="100" alt="">
+                            </div>
+                        `:""}
+                        ${this.config.imageBase64.length == 0 && this.config.code.length == 0 && !this.config.starting ? html`
                         <div class="section onLoading">
                             <h3>Espere mientras preparamos su bot...</h3>
                             <img src="${images.configuracionDeLaAplicacionMovil}" width="100" alt="">
