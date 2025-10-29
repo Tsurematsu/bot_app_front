@@ -1,3 +1,48 @@
+:host {
+  --primary-color: #137fec;
+  --background-dark: #101922;
+  --card-bg: #192736;
+  --icon-bg: #233648;
+  --text-white: #ffffff;
+  --text-secondary: #92adc9;
+  --progress-bg: #324d67;
+}
+
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--background-dark);
+  padding: 1rem;
+  padding-bottom: 0.5rem;
+  min-height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.icon-container {
+  display: flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.header-title {
+  color: var(--text-white);
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+
+
 /* Modal de Producto */
 .modalProducto {
   position: fixed;

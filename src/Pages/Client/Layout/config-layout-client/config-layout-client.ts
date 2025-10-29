@@ -300,7 +300,9 @@ export class ConfigLayoutClient extends LitElement {
             </div>
         </div>
 
-        <h2>Configuraciones</h2>
+        <header class="top-bar">
+            <h1 class="header-title">Configuraciones</h1>
+        </header>
         <form @submit=${(e: Event) => e.preventDefault()}>
             <div class="settings-section">
                 

@@ -11,7 +11,7 @@ export class NotificacionesLayoutClient extends LitElement {
             <div class="body">
                 <!-- Top App Bar -->
                 <div class="app-bar">
-                    <h1 class="app-bar-title">Notifications</h1>
+                    <h1 class="app-bar-title">Notificaciones</h1>
                     <button class="mark-read-btn">Mark all as read</button>
                 </div>
                 <div class="container">
